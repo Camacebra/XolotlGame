@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ public class AI_Base : MonoBehaviour
     protected RaycastHit2D hit;
     protected float direction;
     private bool isGround, isWater;
+
+    private bool isMoving { get;  set; }
+
     private void Awake(){
         rg = GetComponent<Rigidbody2D>();
         direction = 1;
@@ -27,9 +31,17 @@ public class AI_Base : MonoBehaviour
     }
 
     private void FixedUpdate(){
-        velocity.x = isGround?direction * SPEED:0;
-        velocity.y = rg.velocity.y;
-        rg.velocity = velocity;
+        if (isMoving)
+        {
+            velocity.x = isGround ? direction * SPEED : 0;
+            velocity.y = rg.velocity.y;
+            rg.velocity = velocity;
+        }
+        else
+        {
+            rg.velocity = Vector2.zero;
+        }
+       
     }
     public virtual void Raycasting(){
         hit =  Physics2D.Raycast(BlockRaycastPos.position, transform.right * direction, DISTANCE_BLOCK, 1 << LayerMask.NameToLayer(TAG.TAG_BLOCK));
@@ -54,6 +66,12 @@ public class AI_Base : MonoBehaviour
             yield return wait;
         }
     }
+
+    internal void MovementSwitch()
+    {
+        isMoving = !isMoving;
+    }
+
     private void OnDrawGizmos(){
         Gizmos.color = Color.red;
         Gizmos.DrawLine(BlockRaycastPos.position, BlockRaycastPos.position + transform.right * DISTANCE_BLOCK * direction);

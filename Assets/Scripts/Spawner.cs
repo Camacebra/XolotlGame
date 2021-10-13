@@ -49,6 +49,39 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void CommandSouls(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                foreach (AI_Base soul in baseSouls)
+                {
+                    soul.MovementSwitch();
+                }
+                break;
+            case 1:
+                foreach (AI_Base soul in waterSouls)
+                {
+                    soul.MovementSwitch();
+                }
+                break;
+            case 2:
+                foreach (AI_Base soul in warriorSouls)
+                {
+                    soul.MovementSwitch();
+                }
+                break;
+            case 3:
+                foreach (AI_Base soul in childSouls)
+                {
+                    soul.MovementSwitch();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+   
     // Update is called once per frame
     void Update()   
     {

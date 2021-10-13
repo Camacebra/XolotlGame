@@ -14,12 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 direction;
     private Vector3 velocity = Vector3.zero;
-    private Renderer rend;
-    private int currentMode;
 
     void Start()
     {
-        rend = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -27,44 +24,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), transform.position.y);
-        if (Input.GetKeyDown(KeyCode.Space) && CheckIfGrounded())
+        if (Input.GetKeyDown(KeyCode.W) && CheckIfGrounded())
             Jump();
-        ChangeMode();
-    }
-
-    private void ChangeMode()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            currentMode =  currentMode > 0 ? currentMode - 1 : currentMode;
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            currentMode = currentMode < 3 ? currentMode + 1 : currentMode;
-
-        }
-        ChangeColor();
-    }
-
-    private void ChangeColor()
-    {
-        switch (currentMode)
-        {
-            case 0:
-                rend.material.color = Color.white;
-                break;
-            case 1:
-                rend.material.color = Color.blue;
-                break;
-            case 2:
-                rend.material.color = Color.red;
-                break;
-            case 3:
-                rend.material.color = Color.yellow;
-                break;
-            default:
-                break;
-        }
     }
 
     private bool CheckIfGrounded()
