@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 7409136507785404960}
   m_Layer: 8
   m_Name: AI_Child
-  m_TagString: Untagged
+  m_TagString: Soul
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,6 +184,10 @@ MonoBehaviour:
   - {fileID: 8167200210262135832}
   - {fileID: 8167200210509838314}
   BlockRaycastPos: {fileID: 6942347703461909305}
+  myTypeSoul: 3
+  isGround: 0
+  isWater: 0
+  isJumping: 0
 --- !u!61 &7409136507785404960
 BoxCollider2D:
   m_ObjectHideFlags: 0
