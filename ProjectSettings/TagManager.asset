@@ -7,6 +7,7 @@ TagManager:
   - Water
   - Breackeable
   - Soul
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - AI
   - Block
   - Ground
-  - 
+  - Objects
   - 
   - 
   - 
