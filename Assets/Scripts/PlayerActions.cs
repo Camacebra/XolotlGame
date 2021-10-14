@@ -77,7 +77,6 @@ public class PlayerActions : MonoBehaviour
 
     public void ReleaseItem()
     {
-        Debug.Log("here");
         HasItem = false;
         currentActionType = 1;
         objectInFront.SendMessage("Release");
@@ -86,7 +85,6 @@ public class PlayerActions : MonoBehaviour
 
     public void DropItem()
     {
-        Debug.Log("HERE2");
         HasItem = false;
         currentActionType = 1;
     }
@@ -140,7 +138,7 @@ public class PlayerActions : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, actionableRadius);
-        Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
+        //Gizmos.DrawWireSphere(transform.position, actionableRadius);
+        //Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
     }
 }

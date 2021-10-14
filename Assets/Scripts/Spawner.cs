@@ -58,37 +58,25 @@ public class Spawner : MonoBehaviour
             case 0:
                 foreach (AI_Base soul in baseSouls)
                 {
-                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
-                    {
                         soul.MovementSwitch();
-                    }
                 }
                 break;
             case 1:
                 foreach (AI_Base soul in waterSouls)
                 {
-                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
-                    {
                         soul.MovementSwitch();
-                    }
                 }
                 break;
             case 2:
                 foreach (AI_Base soul in warriorSouls)
                 {
-                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
-                    {
                         soul.MovementSwitch();
-                    }
                 }
                 break;
             case 3:
                 foreach (AI_Base soul in childSouls)
                 {
-                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
-                    {
                         soul.MovementSwitch();
-                    }
                 }
                 break;
             default:
