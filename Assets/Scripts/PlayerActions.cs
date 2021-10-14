@@ -6,9 +6,14 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
     private Renderer rend;
-    private int currentMode;
+    private int currentMode, currentActionType = 1;
+    private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
-
+    [SerializeField] private Transform pickupPos;
+    private GameObject objectInFront;
+    [SerializeField] private LayerMask objectLayer;
+    private PlayerMovement move;
+    private const float DISTANCE_OBJECT = 1.5F;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +32,70 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    public void ChangeAction(int i)
+    {
+        if (!HasItem)
+        {
+            currentActionType = i;
+            if (i == 1)
+                objectInFront = null;
+            else
+                GetObject();
+        }
+
+    }
+
+    private void GetObject()
+    {
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(pickupPos.position, transform.right, 1.5f, objectLayer);
+        if (hit)
+        {
+            objectInFront = hit.collider.gameObject;
+            objectInFront.SendMessage("ShowPrompt");
+        }
+    }
+
     private void DoAction()
     {
-        spawn.CommandSouls(currentMode);
+        switch (currentActionType)
+        {
+            case 1:
+                spawn.CommandSouls(currentMode, transform.position, actionableRadius);
+                break;
+            case 2:
+                GrabItem();
+                break;
+            case 3:
+                ReleaseItem();
+                break;
+            default:
+                break;
+        }
 
+    }
+
+    public void ReleaseItem()
+    {
+        Debug.Log("here");
+        HasItem = false;
+        currentActionType = 1;
+        objectInFront.SendMessage("Release");
+        objectInFront = null;
+    }
+
+    public void DropItem()
+    {
+        Debug.Log("HERE2");
+        HasItem = false;
+        currentActionType = 1;
+    }
+
+    private void GrabItem()
+    {
+        objectInFront.SendMessage("Grab", pickupPos);
+        HasItem = true;
+        currentActionType = 3;
     }
 
     private void ChangeMode()
@@ -66,5 +131,16 @@ public class PlayerActions : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    [Range(0, 10f)] public float actionableRadius = 8f;
+
+    public bool HasItem { get; private set; }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, actionableRadius);
+        Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
     }
 }

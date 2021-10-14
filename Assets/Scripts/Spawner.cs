@@ -27,54 +27,68 @@ public class Spawner : MonoBehaviour
 
     private void SpawnSouls()
     {
+        Vector2 pos = transform.position;
+        int count = 0;
         for (int i = 0; i < level.baseSoulsNb; i++)
         {
-            baseSouls.Add(Instantiate(baseSoul, transform.position, Quaternion.identity, transform).GetComponent<AI_Base>());
-
+            baseSouls.Add(Instantiate(baseSoul, new Vector2(pos.x + count * 2, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
+            count++;
         }   
         for (int i = 0; i < level.waterSoulsNb; i++)
         {
-            waterSouls.Add( Instantiate(waterSoul, transform.position, Quaternion.identity, transform).GetComponent<AI_Base>());
-
+            waterSouls.Add( Instantiate(waterSoul, new Vector2(pos.x + count * 2, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
+            count++;
         }   
         for (int i = 0; i < level.warriorSoulsNb; i++)
         {
-            warriorSouls.Add( Instantiate(warriorSoul, transform.position, Quaternion.identity, transform).GetComponent<AI_Base>());
-
+            warriorSouls.Add( Instantiate(warriorSoul, new Vector2(pos.x + count * 2, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
+            count++;
         }   
         for (int i = 0; i < level.childSoulsNb; i++)
         {
-            childSouls.Add( Instantiate(childSoul, transform.position, Quaternion.identity, transform).GetComponent<AI_Base>());
-
+            childSouls.Add( Instantiate(childSoul, new Vector2(pos.x + count * 2, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
+            count++;
         }
     }
 
-    public void CommandSouls(int i)
+    public void CommandSouls(int i, Vector2 pos, float distance)
     {
         switch (i)
         {
             case 0:
                 foreach (AI_Base soul in baseSouls)
                 {
-                    soul.MovementSwitch();
+                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
+                    {
+                        soul.MovementSwitch();
+                    }
                 }
                 break;
             case 1:
                 foreach (AI_Base soul in waterSouls)
                 {
-                    soul.MovementSwitch();
+                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
+                    {
+                        soul.MovementSwitch();
+                    }
                 }
                 break;
             case 2:
                 foreach (AI_Base soul in warriorSouls)
                 {
-                    soul.MovementSwitch();
+                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
+                    {
+                        soul.MovementSwitch();
+                    }
                 }
                 break;
             case 3:
                 foreach (AI_Base soul in childSouls)
                 {
-                    soul.MovementSwitch();
+                    if (Vector2.Distance(pos, (Vector2)soul.transform.position) < distance)
+                    {
+                        soul.MovementSwitch();
+                    }
                 }
                 break;
             default:
