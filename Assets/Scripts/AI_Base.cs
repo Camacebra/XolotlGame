@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-
 public class AI_Base : MonoBehaviour
 {
     public struct TAG{
@@ -10,22 +7,23 @@ public class AI_Base : MonoBehaviour
                             TAG_WATER = "Water",
                             TAG_BREACK = "Breackeable";
     }
-    private const float DISTANCE_BLOCK = 1.25f,
+    private const float DISTANCE_BLOCK = 1.75f,
                         DISNTANCE_GROUND = 0.25f,
-                        SPEED = 5,
+                        SPEED = 2.5f,
                         ///JUMP//
-                        AIR_SPEED = 1,
-                        JUMP_FORCE = 420,
+                        AIR_SPEED = 1.5f,
+                        JUMP_FORCE = 550,
                         MAXJUMP_DISTANCE = 2,
                         JUMP_TIME = 0.2f;
     [SerializeField] private Transform[] PosRaycastsDowns;
     [SerializeField] private Transform BlockRaycastPos;
+    [SerializeField] private LayerMask Walkeable;
     public LevelManager.TypeSoul myTypeSoul;
     private Rigidbody2D rg;
     private Vector2 velocity;
     protected RaycastHit2D hit;
     protected float direction, prevJumpTime;
-    public bool isGround, isWater, isJumping;
+    public bool isGround, isWater, isJumping, hasBlocked;
     
     private bool isMoving { get;  set; }
 
@@ -33,11 +31,12 @@ public class AI_Base : MonoBehaviour
         rg = GetComponent<Rigidbody2D>();
         direction = 1;
         isJumping = false;
+        hasBlocked = false;
         StartCoroutine(CheckingRaycastDelay());
     }
 
     private void FixedUpdate(){
-        if (isMoving){
+        if (isMoving && !LevelManager.Instance.isPause){
             if (!isJumping)
                 velocity.x = isGround ? direction * SPEED : 0;
             else
@@ -46,19 +45,21 @@ public class AI_Base : MonoBehaviour
             rg.velocity = velocity;
         }
         else if(!isJumping){
-            rg.velocity = Vector2.zero;
+            rg.velocity = new Vector2(0, rg.velocity.y);
         }
     }
     public virtual void Raycasting(){
-        hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, 1 << LayerMask.NameToLayer(TAG.TAG_GROUND));
+        hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
         if (hit.collider != null){
+            hasBlocked = true;
             direction *=-1;
             Vector3 Scale = transform.localScale;
             Scale.x *= -1;
             transform.localScale = Scale;
+            hasBlocked = false;
         }
         foreach(Transform RaycastPos in PosRaycastsDowns){
-            isGround = Physics2D.Raycast(RaycastPos.position, Vector2.down, DISNTANCE_GROUND, 1 << LayerMask.NameToLayer(TAG.TAG_GROUND));
+            isGround = Physics2D.Raycast(RaycastPos.position, Vector2.down, DISNTANCE_GROUND, Walkeable);
             if (isGround){
                 if (isJumping && Time.time - prevJumpTime > JUMP_TIME)
                     isJumping = false;
@@ -112,13 +113,13 @@ public class AI_Base : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.transform.gameObject.layer == 10  && !isJumping){
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9)  && !isJumping){
             CheckHeight(collision);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.gameObject.layer == 10 && !isJumping)
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
         {
             CheckHeight(collision);
         }
@@ -135,10 +136,13 @@ public class AI_Base : MonoBehaviour
     }
     private bool CheckHeight(Collider2D collision)
     {
+        if (!isMoving) return false;
+        if (hasBlocked) return false;
+        if (LevelManager.Instance.isPause) return false;
         float heigth = 0;
         bool canJump = false;
         heigth = collision.transform.position.y + (collision.bounds.size.y / 2f);
-        Debug.Log(heigth - transform.position.y);
+        //Debug.Log(heigth - transform.position.y);
         if (heigth - transform.position.y < MAXJUMP_DISTANCE && !isJumping){
             prevJumpTime = Time.time;
             isJumping = true;

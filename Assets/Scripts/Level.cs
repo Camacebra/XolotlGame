@@ -8,5 +8,7 @@ public class Level
     public int  baseSoulsNb,
                 waterSoulsNb,
                 warriorSoulsNb,
-                childSoulsNb;
+                childSoulsNb,
+                soulsFinish,
+                time;
 }

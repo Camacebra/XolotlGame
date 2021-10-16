@@ -5,7 +5,6 @@ using UnityEngine;
 public class FinishDoor : MonoBehaviour
 {
     private const string SOULS_TAG = "Soul";
-    
     [SerializeField] private LevelManager.TypeSoul type;
 
     private void OnTriggerEnter2D(Collider2D collision)
