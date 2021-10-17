@@ -6,8 +6,8 @@ using UnityEngine.Events;
 
 public class Switch : MonoBehaviour
 {
+    [SerializeField] private UnityEvent activate;
     [SerializeField] private GameObject prompt;
-    [SerializeField] private UnityEvent enable, disable;
 
     private PlayerActions player;
     private bool State { get; set; }
@@ -25,10 +25,7 @@ public class Switch : MonoBehaviour
     public void Activate()
     {
         State = !State;
-        if (State)
-            enable.Invoke();
-        else
-            disable.Invoke();
+        activate.Invoke();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
