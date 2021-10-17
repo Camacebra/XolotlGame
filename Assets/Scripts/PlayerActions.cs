@@ -10,10 +10,13 @@ public class PlayerActions : MonoBehaviour
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
     [SerializeField] private Transform pickupPos;
-    private GameObject objectInFront;
     [SerializeField] private LayerMask objectLayer;
+    [SerializeField] private BoxCollider2D boxCollider;
+    private GameObject objectInFront;
     private PlayerMovement move;
     private const float DISTANCE_OBJECT = 1.5F;
+    public bool HasItem { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,7 @@ public class PlayerActions : MonoBehaviour
 
     public void ChangeAction(int i)
     {
-        if (!HasItem)
+        if (!HasItem || i != 4)
         {
             currentActionType = i;
             if (i == 1)
@@ -48,7 +51,7 @@ public class PlayerActions : MonoBehaviour
     private void GetObject()
     {
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(pickupPos.position, transform.right, 1.5f, objectLayer);
+        hit = Physics2D.Raycast(pickupPos.position, transform.right, 4f, objectLayer);
         if (hit)
         {
             objectInFront = hit.collider.gameObject;
@@ -69,14 +72,24 @@ public class PlayerActions : MonoBehaviour
             case 3:
                 ReleaseItem();
                 break;
+            case 4:
+                ActivateSwitch();
+                break;
             default:
                 break;
         }
 
     }
 
+    private void ActivateSwitch()
+    {
+        objectInFront.SendMessage("Activate");
+    }
+
     public void ReleaseItem()
     {
+        boxCollider.enabled = false;
+
         HasItem = false;
         currentActionType = 1;
         objectInFront.SendMessage("Release");
@@ -85,12 +98,14 @@ public class PlayerActions : MonoBehaviour
 
     public void DropItem()
     {
+        boxCollider.enabled = false;
         HasItem = false;
         currentActionType = 1;
     }
 
     private void GrabItem()
     {
+        boxCollider.enabled = true;
         objectInFront.SendMessage("Grab", pickupPos);
         HasItem = true;
         currentActionType = 3;
@@ -133,7 +148,20 @@ public class PlayerActions : MonoBehaviour
 
     [Range(0, 10f)] public float actionableRadius = 8f;
 
-    public bool HasItem { get; private set; }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (currentActionType == 4)
+        {
+            objectInFront = collision.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (currentActionType == 4)
+        {
+            ChangeAction(1);
+        }
+    }
 
     void OnDrawGizmosSelected()
     {
