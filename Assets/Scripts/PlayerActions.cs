@@ -37,13 +37,20 @@ public class PlayerActions : MonoBehaviour
 
     public void ChangeAction(int i)
     {
-        if (!HasItem || i != 4)
+        if (!HasItem)
         {
             currentActionType = i;
             if (i == 1)
                 objectInFront = null;
             else
+            {
                 GetObject();
+                if (objectInFront == null)
+                {
+                    currentActionType = 1;
+                }
+            }
+
         }
 
     }
@@ -150,14 +157,16 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (currentActionType == 4)
+        if (!HasItem && collision.tag == "Interactable")
         {
+            currentActionType = 4;
             objectInFront = collision.gameObject;
+            objectInFront.SendMessage("EnablePrompt");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (currentActionType == 4)
+        if (!HasItem && currentActionType == 4)
         {
             ChangeAction(1);
         }

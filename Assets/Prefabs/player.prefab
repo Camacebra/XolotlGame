@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 731851076349626151}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: PickupPos
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731851076349626152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.214, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2014, y: 0.061, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7879551528552954630}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 731851076544962463}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: GroundCheck (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,8 @@ GameObject:
   - component: {fileID: 7879551528552954626}
   - component: {fileID: 7879551528552954628}
   - component: {fileID: 731851076428363773}
-  m_Layer: 8
+  - component: {fileID: 1563557146}
+  m_Layer: 12
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -188,6 +189,7 @@ MonoBehaviour:
   objectLayer:
     serializedVersion: 2
     m_Bits: 1024
+  boxCollider: {fileID: 1563557146}
   actionableRadius: 8
 --- !u!50 &7879551528552954628
 Rigidbody2D:
@@ -226,6 +228,32 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0016868117, y: -0.00046136932}
   m_Size: {x: 0.2557899, y: 0.23717007}
   m_Direction: 1
+--- !u!61 &1563557146
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879551528552954648}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.2031426, y: 0.06343979}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.25, y: 0.25}
+    newSize: {x: 0.25, y: 0.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.15051696, y: 0.37687957}
+  m_EdgeRadius: 0
 --- !u!1 &7879551529182148009
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7879551529182148008}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7879551529679134432}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: GroundCheck (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

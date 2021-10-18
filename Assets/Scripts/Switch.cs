@@ -28,18 +28,16 @@ public class Switch : MonoBehaviour
         activate.Invoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void EnablePrompt()
     {
-
-        if (collision.name == player.name && !player.HasItem)
-        {
-            prompt.SetActive(true);
-            player.ChangeAction(4);
-        }
+        prompt.SetActive(true);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        prompt.SetActive(false);
+        if (collision.name == player.name)
+        {
+            prompt.SetActive(false);
+        }
     }
 
 }
