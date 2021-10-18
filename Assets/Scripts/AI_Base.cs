@@ -5,7 +5,8 @@ public class AI_Base : MonoBehaviour
     public struct TAG{
         public const string TAG_GROUND = "Ground",
                             TAG_WATER = "Water",
-                            TAG_BREACK = "Breackeable";
+                            TAG_BREACK = "Breackeable",
+                            TAG_PLATAFORM = "Plataform";
     }
     private const float DISTANCE_BLOCK = 1.75f,
                         DISNTANCE_GROUND = 0.25f,
@@ -50,7 +51,7 @@ public class AI_Base : MonoBehaviour
     }
     public virtual void Raycasting(){
         hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
-        if (hit.collider != null){
+        if (hit.collider != null && !isJumping && !hit.collider.CompareTag(TAG.TAG_PLATAFORM) && !hit.collider.isTrigger){
             hasBlocked = true;
             direction *=-1;
             Vector3 Scale = transform.localScale;

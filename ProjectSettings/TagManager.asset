@@ -8,6 +8,8 @@ TagManager:
   - Breackeable
   - Soul
   - Interactable
+  - Plataform
+  - Key
   layers:
   - Default
   - TransparentFX

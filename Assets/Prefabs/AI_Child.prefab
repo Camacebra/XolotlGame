@@ -191,6 +191,7 @@ MonoBehaviour:
   isGround: 0
   isWater: 0
   isJumping: 0
+  hasBlocked: 0
 --- !u!70 &2518662654556752636
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
