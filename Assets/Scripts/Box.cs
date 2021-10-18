@@ -43,7 +43,7 @@ public class Box : MonoBehaviour
     {
         IsBeingHeld = true;
         transform.parent = player;
-        //transform.position = player.position;
+        transform.position = player.position;
         gameObject.layer = LAYER_OBJECTS;
         rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
         rb.isKinematic = true;
