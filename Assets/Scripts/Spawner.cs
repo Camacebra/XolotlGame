@@ -18,13 +18,15 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SoulsSpawn[] Souls;
     [SerializeField] private Vector3 offset;
     private Level level;
-  
+    private PlayerActions player;
+    private const float MAX_X_DIST = 15F, MAX_Y_DIST = 2F;
     void Start()
     {
         baseSouls = new List<AI_Base>();
         waterSouls = new List<AI_Base>();
         warriorSouls = new List<AI_Base>();
         childSouls = new List<AI_Base>();
+        player = GameObject.Find("Player").GetComponent<PlayerActions>();
         level = LevelManager.Instance.GetCurrentLevel();
         SpawnSouls();
     }
@@ -36,7 +38,8 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < Souls[0].SpawnPosition.Length; i++){
             count = 0;
             for (int j = 0; j < SoulPerSpawn; j++){
-                baseSouls.Add(Instantiate(Souls[0].Soul, Souls[0].SpawnPosition[i].position + offset * count, Quaternion.identity, transform).GetComponent<AI_Base>());
+                baseSouls.Add(Instantiate(Souls[0].Soul, Souls[0].SpawnPosition[i].position + offset 
+                                        * count, Quaternion.identity, transform).GetComponent<AI_Base>());
                 count++;
             }
         }
@@ -93,6 +96,63 @@ public class Spawner : MonoBehaviour
         //    childSouls.Add( Instantiate(childSoul, new Vector2(pos.x + count * 1.5f, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
         //    count++;
         //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == player.name)
+        {
+            AwakeSouls();
+        }
+    }
+
+    private void AwakeSouls()
+    {
+        Debug.Log("here");
+        Vector2 pos = transform.position;
+        Vector2 pos2;
+        float distx = 0;
+        float disty = 0;
+        foreach (AI_Base soul in baseSouls)
+        {
+            pos2 = soul.transform.position;
+            distx = Mathf.Abs(pos.x - pos2.x);
+            disty = Mathf.Abs(pos.y - pos2.y);
+            if (distx < MAX_X_DIST && disty < MAX_Y_DIST)
+            {
+                soul.Activate();
+            }
+        }
+        foreach (AI_Base soul in warriorSouls)
+        {
+            pos2 = soul.transform.position;
+            distx = Mathf.Abs(pos.x - pos2.x);
+            disty = Mathf.Abs(pos.y - pos2.y);
+            if (distx < MAX_X_DIST && disty < MAX_Y_DIST)
+            {
+                soul.Activate();
+            }
+        }
+        foreach (AI_Base soul in waterSouls)
+        {
+            pos2 = soul.transform.position;
+            distx = Mathf.Abs(pos.x - pos2.x);
+            disty = Mathf.Abs(pos.y - pos2.y);
+            if (distx < MAX_X_DIST && disty < MAX_Y_DIST)
+            {
+                soul.Activate();
+            }
+        }
+        foreach (AI_Base soul in childSouls)
+        {
+            pos2 = soul.transform.position;
+            distx = Mathf.Abs(pos.x - pos2.x);
+            disty = Mathf.Abs(pos.y - pos2.y);
+            if (distx < MAX_X_DIST && disty < MAX_Y_DIST)
+            {
+                soul.Activate();
+            }
+        }
     }
 
     public void CommandSouls(int i, Vector2 pos, float distance)

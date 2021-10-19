@@ -157,7 +157,7 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!HasItem && collision.tag == "Interactable")
+        if (!HasItem && collision.tag == TAG_INTERACTABLE)
         {
             currentActionType = 4;
             objectInFront = collision.gameObject;
@@ -175,7 +175,7 @@ public class PlayerActions : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, actionableRadius);
+        Gizmos.DrawWireSphere(transform.position, actionableRadius);
         //Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
     }
 }
