@@ -59,6 +59,18 @@ TextureImporter:
   - first:
       213: 5837638033343627140
     second: Xolotl-Sheet_18
+  - first:
+      213: 5493038289100465575
+    second: Xolotl-Sheet_19
+  - first:
+      213: -5504283626102180830
+    second: Xolotl-Sheet_20
+  - first:
+      213: -6287141039801736400
+    second: Xolotl-Sheet_21
+  - first:
+      213: 4164979568840957559
+    second: Xolotl-Sheet_22
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -550,6 +562,90 @@ TextureImporter:
       bones: []
       spriteID: 48fb1c8bcd4730150800000000000000
       internalID: 5837638033343627140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Xolotl-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a5e37778313b3c40800000000000000
+      internalID: 5493038289100465575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Xolotl-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2243e2b743bdc93b0800000000000000
+      internalID: -5504283626102180830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Xolotl-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03366d5f8869fb8a0800000000000000
+      internalID: -6287141039801736400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Xolotl-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77e5681d9dafcc930800000000000000
+      internalID: 4164979568840957559
       vertices: []
       indices: 
       edges: []
