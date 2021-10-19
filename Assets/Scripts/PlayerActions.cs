@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform pickupPos;
     [SerializeField] private LayerMask objectLayer;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private Light2D light;
     private GameObject objectInFront;
     private PlayerMovement move;
     private const float DISTANCE_OBJECT = 1.5F;
@@ -137,16 +139,16 @@ public class PlayerActions : MonoBehaviour
         switch (currentMode)
         {
             case 0:
-                rend.material.color = Color.white;
+                light.color = Color.white;
                 break;
             case 1:
-                rend.material.color = Color.blue;
+                light.color = Color.blue;
                 break;
             case 2:
-                rend.material.color = Color.red;
+                light.color = Color.red;
                 break;
             case 3:
-                rend.material.color = Color.yellow;
+                light.color = Color.yellow;
                 break;
             default:
                 break;
