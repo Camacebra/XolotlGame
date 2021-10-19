@@ -29,7 +29,7 @@ public class Box : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (!IsFalling || IsBeingHeld)
+        if (!player.HasItem  && !IsFalling || IsBeingHeld)
         {
             if (collision.collider.name == "Player")
             {
