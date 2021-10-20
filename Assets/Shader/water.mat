@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Glow
+  m_Name: water
   m_Shader: {fileID: -6465566751694194690, guid: e3dc5d50c0fab2942882486cc8593851,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -31,5 +31,5 @@ Material:
     m_Floats: []
     m_Colors:
     - Color_68E5714B: {r: 0.8347622, g: 1.7181512, b: 0.93462217, a: 0}
-    - _Ecolor: {r: 0, g: 5.2078433, b: 8, a: 0}
+    - _Ecolor: {r: 0, g: 0.3529412, b: 1.5686275, a: 0}
     - _EmissionColor: {r: 1.9056604, g: 0.008988986, b: 0.008988986, a: 0}

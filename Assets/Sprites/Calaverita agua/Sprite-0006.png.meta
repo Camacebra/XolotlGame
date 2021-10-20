@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 58dfd07c71a7c8c4688cbf1f9cbaa871
+guid: 7339defdf430b984695544ddc861c444
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7783840816553744903
-    second: spritesheet_fantasma_0
+      213: 7473920403424214205
+    second: Sprite-0006_0
   - first:
-      213: -3430586087813781108
-    second: spritesheet_fantasma_1
+      213: 2831186660323490502
+    second: Sprite-0006_1
   - first:
-      213: -7963919414504764805
-    second: spritesheet_fantasma_2
+      213: 8084631971717302214
+    second: Sprite-0006_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -66,7 +66,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -108,64 +108,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spritesheet_fantasma_0
+      name: Sprite-0006_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 17
-        height: 18
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70a5fda6bf1c50c60800000000000000
-      internalID: 7783840816553744903
+      spriteID: dbcf4a52203b8b760800000000000000
+      internalID: 7473920403424214205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_fantasma_1
+      name: Sprite-0006_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 1
-        width: 18
-        height: 18
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c896670112c1460d0800000000000000
-      internalID: -3430586087813781108
+      spriteID: 6caf76d64456a4720800000000000000
+      internalID: 2831186660323490502
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_fantasma_2
+      name: Sprite-0006_2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 1
-        width: 16
-        height: 18
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7a4b96bc797a7190800000000000000
-      internalID: -7963919414504764805
+      spriteID: 6c7c9fda1f1623070800000000000000
+      internalID: 8084631971717302214
       vertices: []
       indices: 
       edges: []
@@ -179,7 +179,9 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 1d947c33e23c9094ca5ede5e55c99064, type: 3}
+      name: _Emission
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
