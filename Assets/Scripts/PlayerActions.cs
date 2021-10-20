@@ -25,12 +25,14 @@ public class PlayerActions : MonoBehaviour
     private PlayerMovement move;
     private const float DISTANCE_OBJECT = 1.5F;
     public bool HasItem { get; private set; }
+    public bool HasBarked { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         rend = GetComponent<SpriteRenderer>();
         myMat = rend.material;
+        move = GetComponent<PlayerMovement>();
         myMat.EnableKeyword("_Ecolor");
         spawn = GameObject.Find("Spawner").GetComponent<Spawner>();
 
@@ -69,7 +71,7 @@ public class PlayerActions : MonoBehaviour
     private void GetObject()
     {
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(pickupPos.position, transform.right, 4f, objectLayer);
+        hit = Physics2D.Raycast(pickupPos.position, transform.right, DISTANCE_OBJECT, objectLayer);
         if (hit)
         {
             objectInFront = hit.collider.gameObject;
@@ -82,7 +84,11 @@ public class PlayerActions : MonoBehaviour
         switch (currentActionType)
         {
             case 1:
-                spawn.CommandSouls(currentMode, transform.position, actionableRadius);
+                if (!move.IsJumping && move.CheckIfGrounded())
+                {
+                    spawn.CommandSouls(currentMode, transform.position, actionableRadius);
+                    HasBarked = true;
+                }
                 break;
             case 2:
                 GrabItem();
@@ -187,7 +193,7 @@ public class PlayerActions : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, actionableRadius);
-        //Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
+        //Gizmos.DrawWireSphere(transform.position, actionableRadius);
+        Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
     }
 }

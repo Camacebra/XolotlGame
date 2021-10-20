@@ -11,6 +11,13 @@ public class PlayerMovement : MonoBehaviour
                              BARK = "bark",
                              STEP = "step";
     }
+    private const string ANIM_IDLE = "Idle",
+                        ANIM_WALK = "Walk",
+                        ANIM_JUMP = "Jump",
+                        ANIM_JUMP_IDLE = "JumpIdle",
+                        ANIM_SLEEP_IDLE = "SleepIdle",
+                        ANIM_AWAKE = "Awake",
+                        ANIM_BARK = "Bark";
 
     [SerializeField] private float speedWithItem = 5f,
                                    speed = 10f, 
@@ -26,15 +33,21 @@ public class PlayerMovement : MonoBehaviour
     private PlayerActions playerActions;
     private string currentAnim;
     private int prevSound;
-    private const string ANIM_IDLE = "Idle", ANIM_WALK = "Walk";
+   
     public bool IsMoving { get; private set; }
     public bool IsJumping { get; private set; }
+    public bool HasReachedPeak { get; private set; }
+    public bool HasJumped { get; private set; }
+    public bool IsBarking { get; private set; }
+    public bool IsActive { get; private set; }
 
     void Start()
     {
+        IsActive = false;
         prevSound = -1;
         IsMoving = false;
         IsJumping = false;
+        IsBarking = false;
         animator = GetComponent<Animator>();
         playerActions = GetComponent<PlayerActions>();
         rb = GetComponent<Rigidbody2D>();
@@ -43,14 +56,27 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal"), transform.position.y);
-        if (!playerActions.HasItem && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && CheckIfGrounded())
-            Jump();
-        SelectAnimation();
+        if (IsActive)
+        {
+
+            direction = Vector2.zero;
+            if (!IsBarking)
+            {
+                direction = new Vector2(Input.GetAxis("Horizontal"), transform.position.y);
+                if (!playerActions.HasItem && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && CheckIfGrounded())
+                    Jump();
+                if (HasReachedPeak && CheckIfGrounded())
+                {
+                    IsJumping = false;
+                    HasReachedPeak = false;
+                }
+            }
+            SelectAnimation();
+        }
     }
 
 
-    private bool CheckIfGrounded()
+    public bool CheckIfGrounded()
     {
         RaycastHit2D hit;
         foreach (Transform groundCheck in groundChecks)
@@ -66,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        HasJumped = true;
+        IsJumping = true;
         rb.AddForce(new Vector2(0f, jumpForce));
         if (Helpers.AudioManager.instance)
             Helpers.AudioManager.instance.PlayClip(PlayerAudios.JUMP);
@@ -116,14 +144,39 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SelectAnimation()
     {
-        if (IsMoving && !playerActions.HasItem && !IsJumping)
+        if (playerActions.HasBarked)
+        {
+            playerActions.HasBarked = false;
+            IsBarking = true;
+            ChangeCurrentAnimation(ANIM_BARK);
+            StartCoroutine(PlayNextAnimation("StopBark"));
+        }
+        if (HasJumped)
+        {
+            HasJumped = false;
+            ChangeCurrentAnimation(ANIM_JUMP);
+            StartCoroutine(PlayNextAnimation("PlayJumpIdle"));
+        }
+        else if (!IsJumping && !IsBarking && IsMoving && !playerActions.HasItem )
         {
             ChangeCurrentAnimation(ANIM_WALK);
         }
-        else if(!IsMoving && !playerActions.HasItem && !IsJumping)
+        else if(!IsJumping && !IsBarking && !IsMoving && !playerActions.HasItem)
         {
             ChangeCurrentAnimation(ANIM_IDLE);
         }
+    }
+
+    private void StopBark()
+    {
+        IsBarking = false;
+    }
+
+    private void PlayJumpIdle()
+    {
+        IsJumping = true;
+        HasReachedPeak = true;
+        ChangeCurrentAnimation(ANIM_JUMP_IDLE);
     }
 
     private void ChangeCurrentAnimation(string anim)
@@ -132,6 +185,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         animator.Play(anim);
         currentAnim = anim;
+    }
+
+    IEnumerator PlayNextAnimation(string method)
+    {
+        yield return new WaitForEndOfFrame();
+        Invoke(method, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 
 }

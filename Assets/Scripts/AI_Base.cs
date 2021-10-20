@@ -133,7 +133,6 @@ public class AI_Base : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
         {
             CheckHeight(collision);
