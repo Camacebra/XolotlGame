@@ -5,17 +5,20 @@ using UnityEngine;
 public class KeyPickUp : MonoBehaviour
 {
     public const float ANIM_DURATION = 0.2f;
+    private const string OBJECT_SOUND = "obtain";
     private bool HasPickUp = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!HasPickUp && collision.gameObject.layer == 8)
+        if (!HasPickUp && (collision.gameObject.layer == 8 || collision.gameObject.layer == 12))
         {
             HasPickUp = true;
             transform.parent = collision.transform;
             Vector3 position = collision.transform.InverseTransformPoint(collision.bounds.center + (collision.bounds.size));
             Vector3 EndPosition = new Vector3(0, position.y, 0);
             StartCoroutine(MoveAnimation(EndPosition));
+            if (Helpers.AudioManager.instance)
+                Helpers.AudioManager.instance.PlayClip(OBJECT_SOUND);
         }
     }
 

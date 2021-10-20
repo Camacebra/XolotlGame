@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private struct PlayerAudios
+    {
+        public const string JUMP = "jump",
+                             BARK = "bark",
+                             STEP = "step";
+    }
+
     [SerializeField] private float speedWithItem = 5f,
                                    speed = 10f, 
                                    jumpForce = 200f;
@@ -18,12 +25,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
     private PlayerActions playerActions;
     private string currentAnim;
+    private int prevSound;
     private const string ANIM_IDLE = "Idle", ANIM_WALK = "Walk";
     public bool IsMoving { get; private set; }
     public bool IsJumping { get; private set; }
 
     void Start()
     {
+        prevSound = -1;
         IsMoving = false;
         IsJumping = false;
         animator = GetComponent<Animator>();
@@ -58,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(new Vector2(0f, jumpForce));
+        if (Helpers.AudioManager.instance)
+            Helpers.AudioManager.instance.PlayClip(PlayerAudios.JUMP);
     }
 
     private void FixedUpdate()
@@ -83,7 +94,16 @@ public class PlayerMovement : MonoBehaviour
             }
             IsMoving = true;
         }
-        
+        if (Helpers.AudioManager.instance && direction.x !=0 && CheckIfGrounded())
+        {
+            int RandomSound;
+            do
+                RandomSound = UnityEngine.Random.Range(1, 5);
+            while (RandomSound == prevSound);
+            prevSound = RandomSound;
+            Helpers.AudioManager.instance.PlayClip(PlayerAudios.STEP + RandomSound.ToString(), UnityEngine.Random.Range(0.25f, 0.4f));
+        }
+            
     }
 
     private void Flip() 

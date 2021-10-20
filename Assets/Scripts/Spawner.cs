@@ -113,13 +113,11 @@ public class Spawner : MonoBehaviour
         Vector2 pos2;
         float distx = 0;
         float disty = 0;
-        foreach (AI_Base soul in baseSouls)
-        {
+        foreach (AI_Base soul in baseSouls){
             pos2 = soul.transform.position;
             distx = Mathf.Abs(pos.x - pos2.x);
             disty = Mathf.Abs(pos.y - pos2.y);
-            if (distx < MAX_X_DIST && disty < MAX_Y_DIST)
-            {
+            if (distx < MAX_X_DIST && disty < MAX_Y_DIST){
                 soul.Activate();
             }
         }

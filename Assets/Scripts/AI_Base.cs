@@ -9,14 +9,15 @@ public class AI_Base : MonoBehaviour
                             TAG_BREACK = "Breackeable",
                             TAG_PLATAFORM = "Plataform";
     }
-    private const float DISTANCE_BLOCK = 1.75f,
+    private const float DISTANCE_BLOCK = 1f,
                         DISNTANCE_GROUND = 0.25f,
                         SPEED = 2.5f,
                         ///JUMP//
                         AIR_SPEED = 1.5f,
                         JUMP_FORCE = 550,
-                        MAXJUMP_DISTANCE = 2,
+                        MAXJUMP_DISTANCE = 1.5f,
                         JUMP_TIME = 0.2f;
+    private const string WALK_SOUND = "walk-soul";
     [SerializeField] private Transform[] PosRaycastsDowns;
     [SerializeField] private Transform BlockRaycastPos;
     [SerializeField] private LayerMask Walkeable;
@@ -28,11 +29,12 @@ public class AI_Base : MonoBehaviour
     public bool isGround, isWater, isJumping, hasBlocked, isActive;
     public delegate void callSouls();
     private bool isMoving { get;  set; }
-
+    private AudioSource audioSource;
 
 
     private void Awake(){
         rg = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
         direction = 1;
         isJumping = false;
         isActive = false;
@@ -48,6 +50,8 @@ public class AI_Base : MonoBehaviour
                 velocity.x = direction * AIR_SPEED;
             velocity.y = rg.velocity.y;
             rg.velocity = velocity;
+            if(Helpers.AudioManager.instance)
+                Helpers.AudioManager.instance.PlayClip(WALK_SOUND + UnityEngine.Random.Range(1, 5).ToString(), UnityEngine.Random.Range(0.25f, 0.5f), UnityEngine.Random.Range(0.9f, 1.5f), audioSource);
         }
         else if(!isJumping){
             rg.velocity = new Vector2(0, rg.velocity.y);
@@ -92,6 +96,8 @@ public class AI_Base : MonoBehaviour
     {
         if (isActive)
         {
+            if (Helpers.AudioManager.instance)
+                Helpers.AudioManager.instance.PlayClip("bark" + (isMoving? "1": "2"));
             isMoving = !isMoving;
         }
     }
@@ -156,7 +162,7 @@ public class AI_Base : MonoBehaviour
         float heigth = 0;
         bool canJump = false;
         heigth = collision.transform.position.y + (collision.bounds.size.y / 2f);
-        //Debug.Log(heigth - transform.position.y);
+        Debug.Log(heigth - transform.position.y);
         if (heigth - transform.position.y < MAXJUMP_DISTANCE && !isJumping){
             prevJumpTime = Time.time;
             isJumping = true;

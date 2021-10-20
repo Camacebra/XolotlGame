@@ -44,7 +44,7 @@ namespace Helpers
             }
         }
 
-        public void PlayClip(string tag, float vol = 1, float pitch = 1)
+        public void PlayClip(string tag, float vol = 1, float pitch = 1, AudioSource customAudioSource = null)
         {
             if (!clipsDictionary.ContainsKey(tag)) {
                 Debug.LogWarning("Error clip no encontrado" + tag);
@@ -53,6 +53,7 @@ namespace Helpers
             Audio audio = clipsDictionary[tag];
             AudioSource playAudio = audio.audioSource;
             if (!playAudio) playAudio = mainAudio;
+            if (customAudioSource) playAudio = customAudioSource;
             // Comparemos el tiempo minimo entre clip
             if (audio.minTime > 0) {
                 if (audio.useCustomTime)
