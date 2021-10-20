@@ -13,13 +13,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private Transform[] groundChecks;
     private Rigidbody2D rb;
     private Vector2 direction;
+    private Animator animator;
     private Vector3 velocity = Vector3.zero;
     private bool isFacingRight = true;
     private PlayerActions playerActions;
-
+    private string currentAnim;
+    private const string ANIM_IDLE = "Idle", ANIM_WALK = "Walk";
+    public bool IsMoving { get; private set; }
+    public bool IsJumping { get; private set; }
 
     void Start()
     {
+        IsMoving = false;
+        IsJumping = false;
+        animator = GetComponent<Animator>();
         playerActions = GetComponent<PlayerActions>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -30,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
         direction = new Vector2(Input.GetAxis("Horizontal"), transform.position.y);
         if (!playerActions.HasItem && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && CheckIfGrounded())
             Jump();
+        SelectAnimation();
     }
+
 
     private bool CheckIfGrounded()
     {
@@ -61,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 targetVelocity = new Vector2(direction.x * (playerActions.HasItem ? speedWithItem: speed), rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
-        if (!playerActions.HasItem)
+        IsMoving = false;
+        if (!playerActions.HasItem && direction.x != 0)
         {
             if (direction.x > 0 && !isFacingRight)
             {
@@ -71,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Flip();
             }
+            IsMoving = true;
         }
         
     }
@@ -83,4 +94,24 @@ public class PlayerMovement : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+    private void SelectAnimation()
+    {
+        if (IsMoving && !playerActions.HasItem && !IsJumping)
+        {
+            ChangeCurrentAnimation(ANIM_WALK);
+        }
+        else if(!IsMoving && !playerActions.HasItem && !IsJumping)
+        {
+            ChangeCurrentAnimation(ANIM_IDLE);
+        }
+    }
+
+    private void ChangeCurrentAnimation(string anim)
+    {
+        if (currentAnim == anim)
+            return;
+        animator.Play(anim);
+        currentAnim = anim;
+    }
+
 }

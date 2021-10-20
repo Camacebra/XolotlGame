@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 public class AI_Base : MonoBehaviour
 {
-    public struct TAG{
+    public struct TAG {
         public const string TAG_GROUND = "Ground",
                             TAG_WATER = "Water",
-                            TAG_BREACK = "Breackeable";
+                            TAG_BREACK = "Breackeable",
+                            TAG_PLATAFORM = "Plataform";
     }
     private const float DISTANCE_BLOCK = 1.75f,
                         DISNTANCE_GROUND = 0.25f,
@@ -23,14 +25,17 @@ public class AI_Base : MonoBehaviour
     private Vector2 velocity;
     protected RaycastHit2D hit;
     protected float direction, prevJumpTime;
-    public bool isGround, isWater, isJumping, hasBlocked;
-    
+    public bool isGround, isWater, isJumping, hasBlocked, isActive;
+    public delegate void callSouls();
     private bool isMoving { get;  set; }
+
+
 
     private void Awake(){
         rg = GetComponent<Rigidbody2D>();
         direction = 1;
         isJumping = false;
+        isActive = false;
         hasBlocked = false;
         StartCoroutine(CheckingRaycastDelay());
     }
@@ -50,7 +55,7 @@ public class AI_Base : MonoBehaviour
     }
     public virtual void Raycasting(){
         hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
-        if (hit.collider != null){
+        if (hit.collider != null && !isJumping && !hit.collider.CompareTag(TAG.TAG_PLATAFORM) && !hit.collider.isTrigger){
             hasBlocked = true;
             direction *=-1;
             Vector3 Scale = transform.localScale;
@@ -85,7 +90,10 @@ public class AI_Base : MonoBehaviour
 
     internal void MovementSwitch()
     {
-        isMoving = !isMoving;
+        if (isActive)
+        {
+            isMoving = !isMoving;
+        }
     }
 
     private void OnDrawGizmos(){
@@ -119,10 +127,16 @@ public class AI_Base : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log(collision.name);
         if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
         {
             CheckHeight(collision);
         }
+    }
+
+    internal void Activate()
+    {
+        isActive = true;
     }
 
     private IEnumerator Jumping(){

@@ -46,7 +46,7 @@ public class UI_Souls : MonoBehaviour
         }
     }
 
-    void AddSoul(){
+    void AddSoul(LevelManager.TypeSoul type){
         if (isCounting){
             currentSouls++;
             textSoulsCount.text = currentSouls.ToString() + "/" + currentLevel.soulsFinish.ToString();

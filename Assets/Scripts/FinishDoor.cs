@@ -7,8 +7,7 @@ public class FinishDoor : MonoBehaviour
     private const string SOULS_TAG = "Soul";
     [SerializeField] private LevelManager.TypeSoul type;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D collision){
         if (collision.CompareTag(SOULS_TAG))
         {
             AI_Base ai = collision.gameObject.GetComponent<AI_Base>();

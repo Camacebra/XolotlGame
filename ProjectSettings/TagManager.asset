@@ -8,6 +8,8 @@ TagManager:
   - Breackeable
   - Soul
   - Interactable
+  - Plataform
+  - Key
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walls
+    uniqueID: 1284670251
     locked: 0

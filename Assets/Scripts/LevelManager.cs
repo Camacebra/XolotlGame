@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
         Warrior,
         Kid
     }
-    public delegate void AddSoul();
+    public delegate void AddSoul(TypeSoul type);
     public static AddSoul onAddSoul;
     public static LevelManager Instance;
     public bool isPause;
@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void FinishSoul(TypeSoul type){
-        onAddSoul?.Invoke();
+        onAddSoul?.Invoke(type);
     }
     public void LoadLevel(bool next){
         currentLevel = Mathf.Clamp(currentLevel + (next ? 1 : 0), 0, SceneManager.sceneCount);

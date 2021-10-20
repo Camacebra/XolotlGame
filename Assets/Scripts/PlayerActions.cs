@@ -5,7 +5,16 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    private Renderer rend;
+    [ColorUsage(true, true)]
+    public Color white;
+    [ColorUsage(true, true)]
+    public Color red;
+    [ColorUsage(true, true)]
+    public Color blue;
+    [ColorUsage(true, true)]
+    public Color yellow;
+    private SpriteRenderer rend;
+    private Material myMat;
     private int currentMode, currentActionType = 1;
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
@@ -20,7 +29,9 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rend = GetComponent<Renderer>();
+        rend = GetComponent<SpriteRenderer>();
+        myMat = rend.material;
+        myMat.EnableKeyword("_Ecolor");
         spawn = GameObject.Find("Spawner").GetComponent<Spawner>();
 
     }
@@ -37,13 +48,20 @@ public class PlayerActions : MonoBehaviour
 
     public void ChangeAction(int i)
     {
-        if (!HasItem || i != 4)
+        if (!HasItem)
         {
             currentActionType = i;
             if (i == 1)
                 objectInFront = null;
             else
+            {
                 GetObject();
+                if (objectInFront == null)
+                {
+                    currentActionType = 1;
+                }
+            }
+
         }
 
     }
@@ -130,34 +148,37 @@ public class PlayerActions : MonoBehaviour
         switch (currentMode)
         {
             case 0:
-                rend.material.color = Color.white;
+                myMat.SetColor("_Ecolor", white);
                 break;
             case 1:
-                rend.material.color = Color.blue;
+                myMat.SetColor("_Ecolor", blue);
                 break;
             case 2:
-                rend.material.color = Color.red;
+                myMat.SetColor("_Ecolor", red);
                 break;
             case 3:
-                rend.material.color = Color.yellow;
+                myMat.SetColor("_Ecolor", yellow);
                 break;
             default:
                 break;
         }
+        DynamicGI.UpdateEnvironment();
     }
 
     [Range(0, 10f)] public float actionableRadius = 8f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (currentActionType == 4)
+        if (!HasItem && collision.tag == TAG_INTERACTABLE)
         {
+            currentActionType = 4;
             objectInFront = collision.gameObject;
+            objectInFront.SendMessage("EnablePrompt");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (currentActionType == 4)
+        if (!HasItem && currentActionType == 4)
         {
             ChangeAction(1);
         }
@@ -166,7 +187,7 @@ public class PlayerActions : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, actionableRadius);
+        Gizmos.DrawWireSphere(transform.position, actionableRadius);
         //Gizmos.DrawLine(pickupPos.position, pickupPos.position + transform.right * DISTANCE_OBJECT);
     }
 }
