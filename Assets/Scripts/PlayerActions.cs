@@ -15,7 +15,7 @@ public class PlayerActions : MonoBehaviour
     public Color yellow;
     private SpriteRenderer rend;
     private Material myMat;
-    private int currentMode, currentActionType = 1;
+    [HideInInspector]public int currentMode, currentActionType = 1;
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
     [SerializeField] private Transform pickupPos;
@@ -26,10 +26,12 @@ public class PlayerActions : MonoBehaviour
     private const float DISTANCE_OBJECT = 1.5F;
     public bool HasItem { get; private set; }
     public bool HasBarked { get; set; }
+    public bool CanBark { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        CanBark = false;
         rend = GetComponent<SpriteRenderer>();
         myMat = rend.material;
         move = GetComponent<PlayerMovement>();
@@ -84,7 +86,7 @@ public class PlayerActions : MonoBehaviour
         switch (currentActionType)
         {
             case 1:
-                if (!move.IsJumping && move.CheckIfGrounded())
+                if (CanBark && !move.IsJumping && move.CheckIfGrounded())
                 {
                     spawn.CommandSouls(currentMode, transform.position, actionableRadius);
                     HasBarked = true;

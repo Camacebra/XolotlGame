@@ -108,7 +108,7 @@ public class Spawner : MonoBehaviour
 
     private void AwakeSouls()
     {
-        Debug.Log("here");
+        player.CanBark = true;
         Vector2 pos = transform.position;
         Vector2 pos2;
         float distx = 0;
