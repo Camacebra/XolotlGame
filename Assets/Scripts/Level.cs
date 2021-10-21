@@ -11,4 +11,6 @@ public class Level
                 childSoulsNb,
                 soulsFinish,
                 time;
+    public Transform RespawnPos;
+    public GameObject LevelPrefab;
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class LevelManager : MonoBehaviour
     public bool isPause;
     [SerializeField]private Level[] levels;
     private int currentLevel;
+    private PlayerMovement player;
     private void Awake(){
         if (Instance != null && Instance != this){
             Destroy(this.gameObject);
             return;
         }
+        player = FindObjectOfType<PlayerMovement>();
         isPause = false;
         Instance = this;
         DontDestroyOnLoad(this);
@@ -36,5 +39,21 @@ public class LevelManager : MonoBehaviour
     }
     public void MainMenu(){
         SceneManager.LoadScene(0);
+    }
+    public void ChangeLevel()
+    {
+        StartCoroutine(ChangingAnim());
+    }
+
+    IEnumerator ChangingAnim()
+    {
+        FadeController1.instace.SetFade(Color.black, 1, true);
+        yield return new WaitForSeconds(1);
+        levels[currentLevel].LevelPrefab.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        currentLevel++;
+        player.transform.position = levels[currentLevel].RespawnPos.position;
+        levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
     }
 }

@@ -80,6 +80,57 @@ namespace Helpers
             if (!stopAudio) stopAudio = mainAudio;
             stopAudio.Stop();
         }
+        public void PlayFadeAudio(string tag, float vol = 0, float time = 0, bool loop = false)
+        {
+            if (!clipsDictionary.ContainsKey(tag))
+            {
+                Debug.LogWarning("Error clip no encontrado" + tag);
+                return;
+            }
+            Audio audio = clipsDictionary[tag];
+            AudioSource playAudio = audio.audioSource;
+            if (!playAudio)
+            {
+                Debug.LogWarning("Error se necesita un AudioSource");
+                return;
+            }
+            playAudio.clip = audio.clip;
+            playAudio.volume = 0;
+            playAudio.loop = loop;
+            StartCoroutine(FadeAudio(playAudio, vol, time));
+            playAudio.Play();
+        }
+        public void StopAudioFade(string tag, float time = 0)
+        {
+            if (!clipsDictionary.ContainsKey(tag))
+            {
+                Debug.LogWarning("Error clip no encontrado" + tag);
+                return;
+            }
+            Audio audio = clipsDictionary[tag];
+            AudioSource playAudio = audio.audioSource;
+            if (!playAudio)
+            {
+                Debug.LogWarning("Error se necesita un AudioSource");
+                return;
+            }
+            StartCoroutine(FadeAudio(playAudio, 0, time, true));
+        }
+
+
+        IEnumerator FadeAudio(AudioSource audio, float Vol, float time, bool stop = false)
+        {
+            float timeElpse = 0;
+            float initialSound = audio.volume;
+            while (timeElpse < time){
+                audio.volume = Mathf.Lerp(initialSound, Vol, timeElpse / time);
+                timeElpse += Time.deltaTime;
+                yield return null;
+            }
+            audio.volume = Vol;
+            if (stop)
+                audio.Stop();
+        }
     }
 }
 

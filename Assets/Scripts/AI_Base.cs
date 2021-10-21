@@ -12,26 +12,28 @@ public class AI_Base : MonoBehaviour
 
     private const string ANIM_WALK = "Walk",
                          ANIM_IDLE = "Idle";
-    private const float DISTANCE_BLOCK = 1f,
+    private const float DISTANCE_BLOCK = 1.4f,
+                        DISTANCE_JUMP = 1.5f,
                         DISNTANCE_GROUND = 0.25f,
                         SPEED = 2.5f,
                         ///JUMP//
-                        AIR_SPEED = 1.5f,
-                        JUMP_FORCE = 550,
+                        AIR_SPEED = 2f,
                         MAXJUMP_DISTANCE = 1.5f,
                         JUMP_TIME = 0.2f;
     private const string WALK_SOUND = "walk-soul";
     [SerializeField] private Transform[] PosRaycastsDowns;
-    [SerializeField] private Transform BlockRaycastPos;
+    [SerializeField] private Transform BlockRaycastPos, CanJumpPos;
     [SerializeField] private LayerMask Walkeable;
     public LevelManager.TypeSoul myTypeSoul;
     private Rigidbody2D rg;
     private Vector2 velocity;
     protected RaycastHit2D hit;
     protected float direction, prevJumpTime;
-    public bool isGround, isWater, isJumping, hasBlocked, isActive;
+    public bool isGround, isWater, isJumping, hasBlocked, isActive, canJump;
+    protected float JUMP_FORCE = 550;
     public delegate void callSouls();
     private bool isMoving { get;  set; }
+    private bool canMove;
     private AudioSource audioSource;
     private Animator anim;
 
@@ -44,8 +46,12 @@ public class AI_Base : MonoBehaviour
         isJumping = false;
         isActive = false;
         hasBlocked = false;
+        canJump = true;
+        canMove = true;
         StartCoroutine(CheckingRaycastDelay());
         anim = GetComponent<Animator>();
+        if (myTypeSoul == LevelManager.TypeSoul.Kid)
+            JUMP_FORCE = 200;
     }
 
     private void FixedUpdate(){
@@ -66,12 +72,18 @@ public class AI_Base : MonoBehaviour
     public virtual void Raycasting(){
         hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
         if (hit.collider != null && !isJumping && !hit.collider.CompareTag(TAG.TAG_PLATAFORM) && !hit.collider.isTrigger){
-            hasBlocked = true;
-            direction *=-1;
-            Vector3 Scale = transform.localScale;
-            Scale.x *= -1;
-            transform.localScale = Scale;
-            hasBlocked = false;
+            if (canJump){
+                doJump();
+            }
+            else{
+                hasBlocked = true;
+                direction *= -1;
+                Vector3 Scale = transform.localScale;
+                Scale.x *= -1;
+                transform.localScale = Scale;
+                hasBlocked = false;
+            }
+            
         }
         foreach(Transform RaycastPos in PosRaycastsDowns){
             isGround = Physics2D.Raycast(RaycastPos.position, Vector2.down, DISNTANCE_GROUND, Walkeable);
@@ -81,11 +93,13 @@ public class AI_Base : MonoBehaviour
                 break;
             }
         }
+        canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
     }
     public virtual void OnWaterEnter(){
-        Destroy(gameObject);
+        canMove = false;
     }
     public virtual void OnWaterExit(){
+        canMove = true;
     }
     public virtual void OnBreackEnter(Collider2D col){
 
@@ -98,12 +112,9 @@ public class AI_Base : MonoBehaviour
         }
     }
 
-    internal void MovementSwitch()
-    {
+    internal void MovementSwitch(){
         if (isActive)
         {
-            if (Helpers.AudioManager.instance)
-                Helpers.AudioManager.instance.PlayClip("bark" + (isMoving? "1": "2"));
             anim.Play(isMoving ? ANIM_IDLE : ANIM_WALK);
             isMoving = !isMoving;
         }
@@ -112,6 +123,7 @@ public class AI_Base : MonoBehaviour
     private void OnDrawGizmos(){
         Gizmos.color = Color.red;
         Gizmos.DrawLine(BlockRaycastPos.position, BlockRaycastPos.position + transform.right * DISTANCE_BLOCK * direction);
+        Gizmos.DrawLine(CanJumpPos.position, CanJumpPos.position + transform.right * DISTANCE_BLOCK * direction);
         foreach (Transform RaycastPos in PosRaycastsDowns)
             Gizmos.DrawLine(RaycastPos.position, RaycastPos.position + transform.up * DISNTANCE_GROUND * -1);
     }
@@ -133,18 +145,18 @@ public class AI_Base : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision){
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9)  && !isJumping){
-            CheckHeight(collision);
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
-        {
-            CheckHeight(collision);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision){
+    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9)  && !isJumping){
+    //        CheckHeight(collision);
+    //    }
+    //}
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
+    //    {
+    //        CheckHeight(collision);
+    //    }
+    //}
 
     internal void Activate()
     {
@@ -176,5 +188,11 @@ public class AI_Base : MonoBehaviour
             rg.AddForce(Vector2.up * JUMP_FORCE);
         }
         return canJump;
+    }
+    private void doJump(){
+        prevJumpTime = Time.time;
+        isJumping = true;
+        canJump = true;
+        rg.AddForce(Vector2.up * JUMP_FORCE);
     }
 }

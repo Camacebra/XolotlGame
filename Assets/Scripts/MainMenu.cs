@@ -6,9 +6,11 @@ public class MainMenu : MonoBehaviour
 
     bool isStarted = false;
     private Animator Anim;
+    private PlayerMovement player;
     private void Awake()
     {
         Anim = GetComponent<Animator>();
+        player = FindObjectOfType<PlayerMovement>();
     }
     void Update()
     {
@@ -20,5 +22,10 @@ public class MainMenu : MonoBehaviour
 
     public void LoadLevel(int level){
         SceneManager.LoadScene(level);
+    }
+
+    public void StarGame()
+    {
+        player.Awaken();
     }
 }

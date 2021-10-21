@@ -24,6 +24,7 @@ public class PlayerActions : MonoBehaviour
     private GameObject objectInFront;
     private PlayerMovement move;
     private const float DISTANCE_OBJECT = 1.5F;
+    private bool isMoving = false;
     public bool HasItem { get; private set; }
     public bool HasBarked { get; set; }
 
@@ -34,10 +35,13 @@ public class PlayerActions : MonoBehaviour
         myMat = rend.material;
         move = GetComponent<PlayerMovement>();
         myMat.EnableKeyword("_Ecolor");
-        spawn = GameObject.Find("Spawner").GetComponent<Spawner>();
+        spawn = FindObjectOfType<Spawner>();
 
     }
-
+    private void OnEnable()
+    {
+        spawn = FindObjectOfType<Spawner>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -84,9 +88,12 @@ public class PlayerActions : MonoBehaviour
         switch (currentActionType)
         {
             case 1:
-                if (!move.IsJumping && move.CheckIfGrounded())
+                if (!move.IsJumping && move.CheckIfGrounded() && spawn)
                 {
                     spawn.CommandSouls(currentMode, transform.position, actionableRadius);
+                    if (Helpers.AudioManager.instance)
+                        Helpers.AudioManager.instance.PlayClip("bark" + (isMoving ? "1" : "2"));
+                    isMoving = !isMoving;
                     HasBarked = true;
                 }
                 break;
