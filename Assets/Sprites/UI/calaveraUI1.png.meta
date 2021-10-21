@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: edf2ae329c373754ebdbbd271b5f43a3
+guid: 48ef8ed7c51aeb84c8a842ac4910880e
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -846793454208569702
-    second: Xolotl_Spritesheet_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -43,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -60,7 +57,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform

@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        IsActive = false;
+        IsActive = true;
         prevSound = -1;
         IsMoving = false;
         IsJumping = false;
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 targetVelocity = new Vector2(direction.x * (playerActions.HasItem ? speedWithItem: speed), rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
-        IsMoving = false;
+        IsMoving =  direction.x != 0 ? true : false;
         if (!playerActions.HasItem && direction.x != 0)
         {
             if (direction.x > 0 && !isFacingRight)
@@ -121,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 Flip();
             }
-            IsMoving = true;
         }
         if (Helpers.AudioManager.instance && direction.x !=0 && CheckIfGrounded())
         {
@@ -149,22 +148,58 @@ public class PlayerMovement : MonoBehaviour
         {
             playerActions.HasBarked = false;
             IsBarking = true;
-            ChangeCurrentAnimation(ANIM_BARK);
+            if (playerActions.currentMode == 5)
+            {
+                ChangeCurrentAnimation(ANIM_BARK);
+
+            }
+            else
+            {
+                ChangeCurrentAnimation(ANIM_BARK + $"_{playerActions.currentMode}");
+
+            }
             StartCoroutine(PlayNextAnimation("StopBark"));
         }
-        if (HasJumped)
+        else if (HasJumped)
         {
             HasJumped = false;
-            ChangeCurrentAnimation(ANIM_JUMP);
+            if (playerActions.currentMode == 5)
+            {
+                ChangeCurrentAnimation(ANIM_JUMP);
+
+            }
+            else
+            {
+                ChangeCurrentAnimation(ANIM_JUMP + $"_{playerActions.currentMode}");
+
+            }
             StartCoroutine(PlayNextAnimation("PlayJumpIdle"));
         }
         else if (!IsJumping && !IsBarking && IsMoving)
         {
-            ChangeCurrentAnimation(ANIM_WALK);
+            if (playerActions.currentMode == 5)
+            {
+                ChangeCurrentAnimation(ANIM_WALK);
+
+            }
+            else
+            {
+                ChangeCurrentAnimation(ANIM_WALK + $"_{playerActions.currentMode}");
+
+            }
         }
         else if(!IsJumping && !IsBarking && !IsMoving)
         {
-            ChangeCurrentAnimation(ANIM_IDLE);
+            if (playerActions.currentMode == 5)
+            {
+                ChangeCurrentAnimation(ANIM_IDLE);
+
+            }
+            else
+            {
+                ChangeCurrentAnimation(ANIM_IDLE + $"_{playerActions.currentMode}");
+
+            }
         }
     }
 
@@ -190,7 +225,16 @@ public class PlayerMovement : MonoBehaviour
     {
         IsJumping = true;
         HasReachedPeak = true;
-        ChangeCurrentAnimation(ANIM_JUMP_IDLE);
+        if (playerActions.currentMode == 5)
+        {
+            ChangeCurrentAnimation(ANIM_JUMP_IDLE);
+
+        }
+        else
+        {
+            ChangeCurrentAnimation(ANIM_JUMP_IDLE + $"_{playerActions.currentMode}");
+
+        }
     }
 
     private void ChangeCurrentAnimation(string anim)
