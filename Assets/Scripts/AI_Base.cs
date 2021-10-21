@@ -9,6 +9,9 @@ public class AI_Base : MonoBehaviour
                             TAG_BREACK = "Breackeable",
                             TAG_PLATAFORM = "Plataform";
     }
+
+    private const string ANIM_WALK = "Walk",
+                         ANIM_IDLE = "Idle";
     private const float DISTANCE_BLOCK = 1f,
                         DISNTANCE_GROUND = 0.25f,
                         SPEED = 2.5f,
@@ -30,6 +33,8 @@ public class AI_Base : MonoBehaviour
     public delegate void callSouls();
     private bool isMoving { get;  set; }
     private AudioSource audioSource;
+    private Animator anim;
+
 
 
     private void Awake(){
@@ -40,6 +45,7 @@ public class AI_Base : MonoBehaviour
         isActive = false;
         hasBlocked = false;
         StartCoroutine(CheckingRaycastDelay());
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate(){
@@ -98,6 +104,7 @@ public class AI_Base : MonoBehaviour
         {
             if (Helpers.AudioManager.instance)
                 Helpers.AudioManager.instance.PlayClip("bark" + (isMoving? "1": "2"));
+            anim.Play(isMoving ? ANIM_IDLE : ANIM_WALK);
             isMoving = !isMoving;
         }
     }

@@ -42,7 +42,7 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         ChangeMode();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (move.IsActive && Input.GetKeyDown(KeyCode.Space))
         {
             DoAction();
         }
@@ -139,11 +139,11 @@ public class PlayerActions : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            currentMode = currentMode > 0 ? currentMode - 1 : currentMode;
+            currentMode = currentMode > 0 ? currentMode - 1 : 3;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            currentMode = currentMode < 3 ? currentMode + 1 : currentMode;
+            currentMode = currentMode < 3 ? currentMode + 1 : 0;
 
         }
         ChangeColor();

@@ -47,6 +47,66 @@ TextureImporter:
   - first:
       213: -6071663131698742709
     second: TileSetRocoso_14
+  - first:
+      213: 4052311083787149693
+    second: TileSetRocoso_0
+  - first:
+      213: -5439281354958184856
+    second: TileSetRocoso_1
+  - first:
+      213: -4325010990544151990
+    second: TileSetRocoso_2
+  - first:
+      213: -6006188635082983552
+    second: TileSetRocoso_3
+  - first:
+      213: -7490032853679741968
+    second: TileSetRocoso_4
+  - first:
+      213: 108059662263905043
+    second: TileSetRocoso_5
+  - first:
+      213: -1786612335102688330
+    second: TileSetRocoso_6
+  - first:
+      213: -8348507476027942776
+    second: TileSetRocoso_7
+  - first:
+      213: 6642525949338660847
+    second: TileSetRocoso_8
+  - first:
+      213: -7437306276028482073
+    second: TileSetRocoso_9
+  - first:
+      213: -7303910964771542160
+    second: TileSetRocoso_10
+  - first:
+      213: -5010560752928161789
+    second: TileSetRocoso_11
+  - first:
+      213: 3611653458672291103
+    second: TileSetRocoso_12
+  - first:
+      213: 5035371105547381570
+    second: TileSetRocoso_13
+  - first:
+      213: -1764285734195150198
+    second: TileSetRocoso_14
+  - first:
+      213: 184465600123751247
+    second: TileSetRocoso_15
+  - first:
+      213: 5464954779164529308
+    second: TileSetRocoso_16
+  - first:
+      213: 2114530745516368849
+    second: TileSetRocoso_17
+  - first:
+      213: -7531437517935851313
+    second: TileSetRocoso_18
+  - first:
+      213: -5397166609260407271
+    second: TileSetRocoso_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,7 +207,7 @@ TextureImporter:
       name: TileSetRocoso_0
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 32
         width: 16
         height: 16
@@ -158,8 +218,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 810f8b8be3b2b33b0800000000000000
-      internalID: -5531780168907427816
+      spriteID: d71e28ce573bc3830800000000000000
+      internalID: 4052311083787149693
       vertices: []
       indices: 
       edges: []
@@ -168,6 +228,69 @@ TextureImporter:
       name: TileSetRocoso_1
       rect:
         serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86edf4c1d6ac384b0800000000000000
+      internalID: -5439281354958184856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4a94f24b697af3c0800000000000000
+      internalID: -4325010990544151990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087f3ef224bb5aca0800000000000000
+      internalID: -6006188635082983552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_4
+      rect:
+        serializedVersion: 2
         x: 64
         y: 32
         width: 16
@@ -179,14 +302,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed707926d5cfd78e0800000000000000
-      internalID: -1693920406805215266
+      spriteID: 0f3e960bdce0e0890800000000000000
+      internalID: -7490032853679741968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_2
+      name: TileSetRocoso_5
       rect:
         serializedVersion: 2
         x: 80
@@ -200,14 +323,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 457947e3fa08facc0800000000000000
-      internalID: -3697595278892427436
+      spriteID: 31be9c7b0b7ef7100800000000000000
+      internalID: 108059662263905043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_3
+      name: TileSetRocoso_6
       rect:
         serializedVersion: 2
         x: 96
@@ -221,14 +344,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 918674559caeabcf0800000000000000
-      internalID: -235617880043460583
+      spriteID: 6b38fde0c8da437e0800000000000000
+      internalID: -1786612335102688330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_4
+      name: TileSetRocoso_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88859aecea4242c80800000000000000
+      internalID: -8348507476027942776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef25a5482efe2c50800000000000000
+      internalID: 6642525949338660847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_9
       rect:
         serializedVersion: 2
         x: 48
@@ -242,14 +407,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6f1e0b38873fcde0800000000000000
-      internalID: -1310767908295663766
+      spriteID: 7edf983b85169c890800000000000000
+      internalID: -7437306276028482073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_5
+      name: TileSetRocoso_10
       rect:
         serializedVersion: 2
         x: 64
@@ -263,14 +428,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19532553164c5efb0800000000000000
-      internalID: -4619069921013123695
+      spriteID: 07b26b1ecab43aa90800000000000000
+      internalID: -7303910964771542160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_6
+      name: TileSetRocoso_11
       rect:
         serializedVersion: 2
         x: 80
@@ -284,14 +449,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd6f0bad808455a90800000000000000
-      internalID: -7325870015982274852
+      spriteID: 3000434da89e67ab0800000000000000
+      internalID: -5010560752928161789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_7
+      name: TileSetRocoso_12
       rect:
         serializedVersion: 2
         x: 96
@@ -305,14 +470,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b63e47b566421380800000000000000
-      internalID: -9002055302479202636
+      spriteID: f1d09ff6fab2f1230800000000000000
+      internalID: 3611653458672291103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_8
+      name: TileSetRocoso_13
       rect:
         serializedVersion: 2
         x: 0
@@ -326,14 +491,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 637f079aa92759300800000000000000
-      internalID: 258238562236954422
+      spriteID: 24bea6a875b31e540800000000000000
+      internalID: 5035371105547381570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_9
+      name: TileSetRocoso_14
       rect:
         serializedVersion: 2
         x: 16
@@ -347,14 +512,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2e3391dcbe69bc40800000000000000
-      internalID: 5528571774822989358
+      spriteID: a82420be87ff387e0800000000000000
+      internalID: -1764285734195150198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_10
+      name: TileSetRocoso_15
       rect:
         serializedVersion: 2
         x: 32
@@ -368,14 +533,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ae01c4a5b17411b0800000000000000
-      internalID: -5686795404494958941
+      spriteID: f4bc7a86c7a5f8200800000000000000
+      internalID: 184465600123751247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_11
+      name: TileSetRocoso_16
       rect:
         serializedVersion: 2
         x: 48
@@ -389,14 +554,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7341eeebe59de6280800000000000000
-      internalID: -9048055600387320777
+      spriteID: c92dca5ca6b67db40800000000000000
+      internalID: 5464954779164529308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_12
+      name: TileSetRocoso_17
       rect:
         serializedVersion: 2
         x: 64
@@ -410,14 +575,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71fe8fe96c8327260800000000000000
-      internalID: 7093794788783746839
+      spriteID: 1d325218282585d10800000000000000
+      internalID: 2114530745516368849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_13
+      name: TileSetRocoso_18
       rect:
         serializedVersion: 2
         x: 80
@@ -431,14 +596,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13df0d80d09a8e610800000000000000
-      internalID: 1650755136878869809
+      spriteID: fc8426f0b75fa7790800000000000000
+      internalID: -7531437517935851313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileSetRocoso_14
+      name: TileSetRocoso_19
       rect:
         serializedVersion: 2
         x: 96
@@ -452,8 +617,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4ab24ffc8e1dbba0800000000000000
-      internalID: -6071663131698742709
+      spriteID: 9161f6570996915b0800000000000000
+      internalID: -5397166609260407271
       vertices: []
       indices: 
       edges: []

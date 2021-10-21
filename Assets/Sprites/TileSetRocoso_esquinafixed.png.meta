@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 58dfd07c71a7c8c4688cbf1f9cbaa871
+guid: acd4d529aaf7abe46b0d047c9616fa04
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7783840816553744903
-    second: spritesheet_fantasma_0
+      213: 5048563219137231039
+    second: TileSetRocoso_esquinafixed_0
   - first:
-      213: -3430586087813781108
-    second: spritesheet_fantasma_1
+      213: 2509829262602429183
+    second: TileSetRocoso_esquinafixed_1
   - first:
-      213: -7963919414504764805
-    second: spritesheet_fantasma_2
+      213: 3151636179140689192
+    second: TileSetRocoso_esquinafixed_2
+  - first:
+      213: -8939866056700144772
+    second: TileSetRocoso_esquinafixed_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -66,7 +69,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -108,55 +111,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spritesheet_fantasma_0
+      name: TileSetRocoso_esquinafixed_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 17
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70a5fda6bf1c50c60800000000000000
-      internalID: 7783840816553744903
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spritesheet_fantasma_1
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 1
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c896670112c1460d0800000000000000
-      internalID: -3430586087813781108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spritesheet_fantasma_2
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 1
+        y: 16
         width: 16
-        height: 18
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +125,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7a4b96bc797a7190800000000000000
-      internalID: -7963919414504764805
+      spriteID: fb8f6c6df79101640800000000000000
+      internalID: 5048563219137231039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_esquinafixed_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff26c4caa64b4d220800000000000000
+      internalID: 2509829262602429183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_esquinafixed_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d33f6286cdcbb20800000000000000
+      internalID: 3151636179140689192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TileSetRocoso_esquinafixed_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c73d0d6df273fe380800000000000000
+      internalID: -8939866056700144772
       vertices: []
       indices: 
       edges: []

@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         if (IsActive)
         {
 
@@ -157,14 +158,27 @@ public class PlayerMovement : MonoBehaviour
             ChangeCurrentAnimation(ANIM_JUMP);
             StartCoroutine(PlayNextAnimation("PlayJumpIdle"));
         }
-        else if (!IsJumping && !IsBarking && IsMoving && !playerActions.HasItem )
+        else if (!IsJumping && !IsBarking && IsMoving)
         {
             ChangeCurrentAnimation(ANIM_WALK);
         }
-        else if(!IsJumping && !IsBarking && !IsMoving && !playerActions.HasItem)
+        else if(!IsJumping && !IsBarking && !IsMoving)
         {
             ChangeCurrentAnimation(ANIM_IDLE);
         }
+    }
+
+
+    public void Awaken()
+    {
+        ChangeCurrentAnimation(ANIM_AWAKE);
+        StartCoroutine(PlayNextAnimation("Activate"));
+    }
+
+    private void Activate()
+    {
+        IsActive = true;
+        ChangeCurrentAnimation(ANIM_IDLE);
     }
 
     private void StopBark()
