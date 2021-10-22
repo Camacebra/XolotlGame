@@ -66,7 +66,7 @@ public class Bridge : MonoBehaviour
     public void Activate()
     {
         StopAllCoroutines();
-        Helpers.AudioManager.instance.PlayFadeAudio("puente_despliegue", 1, 0,true);
+        Helpers.AudioManager.instance.PlayFadeAudio("puente_despliegue", .6f, 0,true);
         if (isActive)
         {
             if (DoingCoroutine)

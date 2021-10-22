@@ -165,10 +165,13 @@ public class PlayerActions : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                Helpers.AudioManager.instance.PlayClip("xolo_switch");
                 currentMode = currentMode > 0 ? currentMode - 1 : 3;
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
+                Helpers.AudioManager.instance.PlayClip("xolo_switch");
+
                 currentMode = currentMode < 3 ? currentMode + 1 : 0;
 
             }
