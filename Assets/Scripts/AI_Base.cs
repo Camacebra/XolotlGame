@@ -33,7 +33,7 @@ public class AI_Base : MonoBehaviour
     protected float JUMP_FORCE = 550;
     public delegate void callSouls();
     private bool isMoving { get;  set; }
-    private bool canMove;
+    public bool canMove;
     private AudioSource audioSource;
     private Animator anim;
 
@@ -51,11 +51,11 @@ public class AI_Base : MonoBehaviour
         StartCoroutine(CheckingRaycastDelay());
         anim = GetComponent<Animator>();
         if (myTypeSoul == LevelManager.TypeSoul.Kid)
-            JUMP_FORCE = 250;
+            JUMP_FORCE = 400;
     }
 
     private void FixedUpdate(){
-        if (isMoving && !LevelManager.Instance.isPause){
+        if (isMoving && !LevelManager.Instance.isPause && canMove){
             if (!isJumping)
                 velocity.x = isGround ? direction * SPEED : 0;
             else
@@ -113,21 +113,21 @@ public class AI_Base : MonoBehaviour
             Gizmos.DrawLine(RaycastPos.position, RaycastPos.position + transform.up * DISNTANCE_GROUND * -1);
     }
     private void OnCollisionEnter2D(Collision2D collision){
-        if (collision.collider.CompareTag(TAG.TAG_WATER)){
-            Debug.Log("WATEER");
-            isWater = true;
-            OnWaterEnter();
-        }
+        //if (collision.collider.CompareTag(TAG.TAG_WATER)){
+        //    Debug.Log("WATEER");
+        //    isWater = true;
+        //    OnWaterEnter();
+        //}
         if (collision.collider.CompareTag(TAG.TAG_BREACK)){
             OnBreackEnter(collision.collider);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(TAG.TAG_WATER)){
-            isWater = false;
-            OnWaterExit();
-        }
+        //if (collision.collider.CompareTag(TAG.TAG_WATER)){
+        //    isWater = false;
+        //    OnWaterExit();
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -148,25 +148,32 @@ public class AI_Base : MonoBehaviour
             }
             Debug.Log("ENTER");
         }
+        else{
+            if (collision.CompareTag(TAG.TAG_WATER)){
+                OnWaterEnter();
+            }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision){
+        Debug.Log(collision.name);
         if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && collision == CollBlock){
             CollBlock = null;
+        }
+        else if (collision.CompareTag(TAG.TAG_WATER)){
+            Debug.Log("ENTRAAAA");
+            OnWaterExit();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log(collision.name);
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
-        {
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping){
             CollBlock = collision;
             canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
-            if (canJump)
-            {
+            if (canJump){
                 doJump();
             }
-            else
-            {
+            else{
                 hasBlocked = true;
                 direction *= -1;
                 Vector3 Scale = transform.localScale;
@@ -175,6 +182,10 @@ public class AI_Base : MonoBehaviour
                 hasBlocked = false;
             }
             Debug.Log("ENTER");
+        }
+        else if (collision.CompareTag(TAG.TAG_WATER)){
+            Debug.Log("ENTRAAAA");
+            OnWaterEnter();
         }
     }
 
