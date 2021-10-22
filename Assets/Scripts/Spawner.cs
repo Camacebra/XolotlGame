@@ -17,9 +17,12 @@ public class Spawner : MonoBehaviour
                         childSouls;
     [SerializeField] private SoulsSpawn[] Souls;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private bool canIncreaseProgress;
+    [SerializeField] private GameObject prompt;
+    private bool hasIncreasedProgress;
     private Level level;
     private PlayerActions player;
-    private const float MAX_X_DIST = 15F, MAX_Y_DIST = 2F;
+    private const float MAX_X_DIST = 15F, MAX_Y_DIST = 5F;
     void Start()
     {
         baseSouls = new List<AI_Base>();
@@ -103,6 +106,14 @@ public class Spawner : MonoBehaviour
         if (collision.name == player.name)
         {
             AwakeSouls();
+            if (canIncreaseProgress && !hasIncreasedProgress &&
+                Vector2.Distance(player.transform.position, transform.position) < 5f)
+            {
+                hasIncreasedProgress = true;
+                player.IncreaseProgress();
+                if (prompt != null)
+                    prompt.SetActive(true);
+            }
         }
     }
 

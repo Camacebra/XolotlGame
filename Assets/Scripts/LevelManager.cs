@@ -16,7 +16,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]private Level[] levels;
     [SerializeField]private int currentLevel;
     private PlayerMovement player;
-    [SerializeField] private GameObject globalLight;
+    [SerializeField] private GameObject globalLight, controls;
+    [SerializeField] private GameObject[] hearts;
     private void Awake(){
         if (Instance != null && Instance != this){
             Destroy(this.gameObject);
@@ -49,8 +50,13 @@ public class LevelManager : MonoBehaviour
     IEnumerator ChangingAnim()
     {
         FadeController1.instace.SetFade(Color.black, 1, true);
+        controls.SetActive(false);
         yield return new WaitForSeconds(1);
         globalLight.SetActive(true);
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].SetActive(true);
+        }
         levels[currentLevel].LevelPrefab.gameObject.SetActive(false);
         player.gameObject.SetActive(false);
         currentLevel++;

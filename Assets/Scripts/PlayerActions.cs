@@ -15,7 +15,7 @@ public class PlayerActions : MonoBehaviour
     public Color yellow;
     private SpriteRenderer rend;
     private Material myMat;
-    [HideInInspector]public int currentMode = 5, currentActionType = 1;
+    [HideInInspector]public int currentMode = 5, currentActionType = 1, currentProgress;
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
     [SerializeField] private Transform pickupPos;
@@ -33,6 +33,7 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentProgress = 0;
         CanChangeMode = true;
         CanBark = false;
         currentMode = 5;
@@ -159,23 +160,31 @@ public class PlayerActions : MonoBehaviour
 
     private void ChangeMode()
     {
-        if (CanChangeMode)
+        if (CanChangeMode && currentProgress > 1)
         {
 
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Helpers.AudioManager.instance.PlayClip("xolo_switch");
-                currentMode = currentMode > 0 ? currentMode - 1 : 3;
+                currentMode = currentMode > 0 ? currentMode - 1 : currentProgress - 1;
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
                 Helpers.AudioManager.instance.PlayClip("xolo_switch");
 
-                currentMode = currentMode < 3 ? currentMode + 1 : 0;
+                currentMode = currentMode < currentProgress - 1 ? currentMode + 1 : 0;
 
             }
         }
+    }
+
+    public void IncreaseProgress()
+    {
+        currentProgress++;
+        CanBark = true;
+        Helpers.AudioManager.instance.PlayClip("xolo_switch");
+        currentMode = currentProgress - 1;
     }
 
  

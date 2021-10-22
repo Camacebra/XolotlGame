@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     private const string TRIGGET = "enter";
 
     bool isStarted = false;
+    [SerializeField] GameObject controls;
     private Animator Anim;
     private PlayerMovement player;
     private void Awake()
@@ -17,8 +19,10 @@ public class MainMenu : MonoBehaviour
         if (!isStarted && Input.anyKeyDown){
             isStarted = true;
             Anim.SetTrigger(TRIGGET);
+            Helpers.AudioManager.instance.PlayClip("start");
         }
     }
+
 
     public void LoadLevel(int level){
         SceneManager.LoadScene(level);
@@ -26,6 +30,7 @@ public class MainMenu : MonoBehaviour
 
     public void StarGame()
     {
+        controls.SetActive(true);
         player.Awaken();
     }
 }
