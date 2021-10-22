@@ -6241,9 +6241,9 @@ MonoBehaviour:
     time: 0
     RespawnPos: {fileID: 1343109895}
     LevelPrefab: {fileID: 653385113}
-  - baseSoulsNb: 1
+  - baseSoulsNb: 0
     waterSoulsNb: 0
-    warriorSoulsNb: 0
+    warriorSoulsNb: 2
     childSoulsNb: 0
     soulsFinish: 1
     time: 0

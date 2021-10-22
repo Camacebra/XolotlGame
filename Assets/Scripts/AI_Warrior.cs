@@ -10,7 +10,7 @@ public class AI_Warrior : AI_Base
 
     public override void Raycasting(){
         base.Raycasting();
-        if (hit &&  hit.collider.CompareTag(TAG.TAG_BREACK)){
+        if (CollBlock!= null && CollBlock.CompareTag(TAG.TAG_BREACK) && CollBlock.gameObject.layer!=13){
             direction *= -1;
         }
     }

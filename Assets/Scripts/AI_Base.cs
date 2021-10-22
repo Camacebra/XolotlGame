@@ -27,7 +27,7 @@ public class AI_Base : MonoBehaviour
     public LevelManager.TypeSoul myTypeSoul;
     private Rigidbody2D rg;
     private Vector2 velocity;
-    protected RaycastHit2D hit;
+    protected Collider2D CollBlock;
     protected float direction, prevJumpTime;
     public bool isGround, isWater, isJumping, hasBlocked, isActive, canJump;
     protected float JUMP_FORCE = 550;
@@ -51,7 +51,7 @@ public class AI_Base : MonoBehaviour
         StartCoroutine(CheckingRaycastDelay());
         anim = GetComponent<Animator>();
         if (myTypeSoul == LevelManager.TypeSoul.Kid)
-            JUMP_FORCE = 200;
+            JUMP_FORCE = 250;
     }
 
     private void FixedUpdate(){
@@ -70,21 +70,6 @@ public class AI_Base : MonoBehaviour
         }
     }
     public virtual void Raycasting(){
-        hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
-        if (hit.collider != null && !isJumping && !hit.collider.CompareTag(TAG.TAG_PLATAFORM) && !hit.collider.isTrigger){
-            if (canJump){
-                doJump();
-            }
-            else{
-                hasBlocked = true;
-                direction *= -1;
-                Vector3 Scale = transform.localScale;
-                Scale.x *= -1;
-                transform.localScale = Scale;
-                hasBlocked = false;
-            }
-            
-        }
         foreach(Transform RaycastPos in PosRaycastsDowns){
             isGround = Physics2D.Raycast(RaycastPos.position, Vector2.down, DISNTANCE_GROUND, Walkeable);
             if (isGround){
@@ -93,7 +78,7 @@ public class AI_Base : MonoBehaviour
                 break;
             }
         }
-        canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
+
     }
     public virtual void OnWaterEnter(){
         canMove = false;
@@ -145,18 +130,53 @@ public class AI_Base : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision){
-    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9)  && !isJumping){
-    //        CheckHeight(collision);
-    //    }
-    //}
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
-    //    {
-    //        CheckHeight(collision);
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision){
+        Debug.Log(collision.name);
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping){
+            CollBlock = collision;
+            canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
+            if (canJump){
+                doJump();
+            }
+            else{
+                hasBlocked = true;
+                direction *= -1;
+                Vector3 Scale = transform.localScale;
+                Scale.x *= -1;
+                transform.localScale = Scale;
+                hasBlocked = false;
+            }
+            Debug.Log("ENTER");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision){
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && collision == CollBlock){
+            CollBlock = null;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
+        {
+            CollBlock = collision;
+            canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
+            if (canJump)
+            {
+                doJump();
+            }
+            else
+            {
+                hasBlocked = true;
+                direction *= -1;
+                Vector3 Scale = transform.localScale;
+                Scale.x *= -1;
+                transform.localScale = Scale;
+                hasBlocked = false;
+            }
+            Debug.Log("ENTER");
+        }
+    }
 
     internal void Activate()
     {
