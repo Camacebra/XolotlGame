@@ -14,8 +14,9 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     public bool isPause;
     [SerializeField]private Level[] levels;
-    private int currentLevel;
+    [SerializeField]private int currentLevel;
     private PlayerMovement player;
+    [SerializeField] private GameObject globalLight;
     private void Awake(){
         if (Instance != null && Instance != this){
             Destroy(this.gameObject);
@@ -49,6 +50,7 @@ public class LevelManager : MonoBehaviour
     {
         FadeController1.instace.SetFade(Color.black, 1, true);
         yield return new WaitForSeconds(1);
+        globalLight.SetActive(true);
         levels[currentLevel].LevelPrefab.gameObject.SetActive(false);
         player.gameObject.SetActive(false);
         currentLevel++;

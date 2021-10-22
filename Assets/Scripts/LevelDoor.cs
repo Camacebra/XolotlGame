@@ -14,6 +14,7 @@ public class LevelDoor : MonoBehaviour
     private bool Opened;
     [SerializeField] private Transform EndPos;
     [SerializeField] private TextMeshPro text;
+    [SerializeField] private SpriteRenderer spriteBack;
     void Start(){
         EndPos.transform.parent = null;
         Opened = false;
@@ -50,6 +51,7 @@ public class LevelDoor : MonoBehaviour
         StartCoroutine(AnimMovement());
     }
     IEnumerator AnimMovement(){
+        spriteBack.sortingOrder = -2;
         float timeElpse = 0;
         Vector3 intialPos = transform.position;
         while (timeElpse < ANIM_DURATION){

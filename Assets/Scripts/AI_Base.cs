@@ -27,13 +27,13 @@ public class AI_Base : MonoBehaviour
     public LevelManager.TypeSoul myTypeSoul;
     private Rigidbody2D rg;
     private Vector2 velocity;
-    protected RaycastHit2D hit;
+    protected Collider2D CollBlock;
     protected float direction, prevJumpTime;
     public bool isGround, isWater, isJumping, hasBlocked, isActive, canJump;
     protected float JUMP_FORCE = 550;
     public delegate void callSouls();
     private bool isMoving { get;  set; }
-    private bool canMove;
+    public bool canMove;
     private AudioSource audioSource;
     private Animator anim;
 
@@ -51,11 +51,11 @@ public class AI_Base : MonoBehaviour
         StartCoroutine(CheckingRaycastDelay());
         anim = GetComponent<Animator>();
         if (myTypeSoul == LevelManager.TypeSoul.Kid)
-            JUMP_FORCE = 200;
+            JUMP_FORCE = 400;
     }
 
     private void FixedUpdate(){
-        if (isMoving && !LevelManager.Instance.isPause){
+        if (isMoving && !LevelManager.Instance.isPause && canMove){
             if (!isJumping)
                 velocity.x = isGround ? direction * SPEED : 0;
             else
@@ -70,21 +70,6 @@ public class AI_Base : MonoBehaviour
         }
     }
     public virtual void Raycasting(){
-        hit =  Physics2D.Raycast(BlockRaycastPos.position, Vector2.right * direction, DISTANCE_BLOCK, Walkeable);
-        if (hit.collider != null && !isJumping && !hit.collider.CompareTag(TAG.TAG_PLATAFORM) && !hit.collider.isTrigger){
-            if (canJump){
-                doJump();
-            }
-            else{
-                hasBlocked = true;
-                direction *= -1;
-                Vector3 Scale = transform.localScale;
-                Scale.x *= -1;
-                transform.localScale = Scale;
-                hasBlocked = false;
-            }
-            
-        }
         foreach(Transform RaycastPos in PosRaycastsDowns){
             isGround = Physics2D.Raycast(RaycastPos.position, Vector2.down, DISNTANCE_GROUND, Walkeable);
             if (isGround){
@@ -93,7 +78,6 @@ public class AI_Base : MonoBehaviour
                 break;
             }
         }
-        canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
     }
     public virtual void OnWaterEnter(){
         canMove = false;
@@ -128,35 +112,81 @@ public class AI_Base : MonoBehaviour
             Gizmos.DrawLine(RaycastPos.position, RaycastPos.position + transform.up * DISNTANCE_GROUND * -1);
     }
     private void OnCollisionEnter2D(Collision2D collision){
-        if (collision.collider.CompareTag(TAG.TAG_WATER)){
-            Debug.Log("WATEER");
-            isWater = true;
-            OnWaterEnter();
-        }
+        //if (collision.collider.CompareTag(TAG.TAG_WATER)){
+        //    Debug.Log("WATEER");
+        //    isWater = true;
+        //    OnWaterEnter();
+        //}
         if (collision.collider.CompareTag(TAG.TAG_BREACK)){
             OnBreackEnter(collision.collider);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(TAG.TAG_WATER)){
-            isWater = false;
+        //if (collision.collider.CompareTag(TAG.TAG_WATER)){
+        //    isWater = false;
+        //    OnWaterExit();
+        //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision){
+        Debug.Log(collision.name);
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping&& !collision.CompareTag(TAG.TAG_PLATAFORM)){
+            CollBlock = collision;
+            canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
+            if (canJump){
+                doJump();
+            }
+            else{
+                hasBlocked = true;
+                direction *= -1;
+                Vector3 Scale = transform.localScale;
+                Scale.x *= -1;
+                transform.localScale = Scale;
+                hasBlocked = false;
+            }
+            Debug.Log("ENTER");
+        }
+        else{
+            if (collision.CompareTag(TAG.TAG_WATER)){
+                OnWaterEnter();
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision){
+        Debug.Log(collision.name);
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && collision == CollBlock&& !collision.CompareTag(TAG.TAG_PLATAFORM)){
+            CollBlock = null;
+        }
+        else if (collision.CompareTag(TAG.TAG_WATER)){
+            Debug.Log("ENTRAAAA");
             OnWaterExit();
         }
     }
-
-    //private void OnTriggerEnter2D(Collider2D collision){
-    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9)  && !isJumping){
-    //        CheckHeight(collision);
-    //    }
-    //}
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping)
-    //    {
-    //        CheckHeight(collision);
-    //    }
-    //}
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping && !collision.CompareTag(TAG.TAG_PLATAFORM)){
+            CollBlock = collision;
+            canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
+            if (canJump){
+                doJump();
+            }
+            else{
+                hasBlocked = true;
+                direction *= -1;
+                Vector3 Scale = transform.localScale;
+                Scale.x *= -1;
+                transform.localScale = Scale;
+                hasBlocked = false;
+            }
+            Debug.Log("ENTER");
+        }
+        else if (collision.CompareTag(TAG.TAG_WATER)){
+            Debug.Log("ENTRAAAA");
+            OnWaterEnter();
+        }
+    }
 
     internal void Activate()
     {

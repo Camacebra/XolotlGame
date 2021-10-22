@@ -11,12 +11,12 @@ public class Bridge : MonoBehaviour
     [SerializeField] private float duration = 2f, maxDistance = 30f;
     private SpriteRenderer renderer;
     private RaycastHit2D hit;
-    private float endPoint, progress = 0, tempDuration = 0;
-
+    private float endPoint, progress = 0, tempDuration = 0, offset;
     public bool DoingCoroutine { get; private set; }
 
     void Start()
     {
+        offset = 1f;
         endPoint = 0;
         renderer = GetComponent<SpriteRenderer>();
         GetEndPoint();
@@ -34,25 +34,30 @@ public class Bridge : MonoBehaviour
     
     private void GetEndPoint()
     {
+        Vector2 start;
         switch (direction)
         {
             case "Right":
-                hit = Physics2D.Raycast(transform.position, -transform.right, maxDistance, layer);
+                start = new Vector2(transform.position.x + offset, transform.position.y);
+                hit = Physics2D.Raycast(start, -transform.right, maxDistance, layer);
                 if (hit)
                     endPoint = Vector2.Distance(transform.position, hit.point);
                 break;
             case "Down":
-                hit = Physics2D.Raycast(transform.position, -transform.right, maxDistance,  layer);
+                start = new Vector2(transform.position.x, transform.position.y - offset);
+                hit = Physics2D.Raycast(start, -transform.right, maxDistance,  layer);
                 if (hit)
                     endPoint = Vector2.Distance(transform.position, hit.point); break;
             case "Left":
-                hit = Physics2D.Raycast(transform.position, -transform.right, maxDistance,layer);
+                start = new Vector2(transform.position.x - offset, transform.position.y);
+                hit = Physics2D.Raycast(start, -transform.right, maxDistance,layer);
                 if (hit)
                     endPoint = Vector2.Distance(transform.position, hit.point); break;
             case "Up":
-                hit = Physics2D.Raycast(transform.position, -transform.right, maxDistance, layer);
+                start = new Vector2(transform.position.x, transform.position.y + offset);
+                hit = Physics2D.Raycast(start, -transform.right, maxDistance, layer);
                 if (hit)
-                    endPoint = Vector2.Distance(transform.position, hit.point); break;
+                    endPoint = Vector2.Distance(transform.position, hit.point) ; break; 
             default:
                 break;
         }
@@ -61,8 +66,7 @@ public class Bridge : MonoBehaviour
     public void Activate()
     {
         StopAllCoroutines();
-
-
+        Helpers.AudioManager.instance.PlayFadeAudio("puente_despliegue", .6f, 0,true);
         if (isActive)
         {
             if (DoingCoroutine)
@@ -105,8 +109,8 @@ public class Bridge : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position - transform.right * maxDistance) ;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position - transform.right * maxDistance) ;
     }
     IEnumerator LerpFunction(float endValue, float duration)
     {
@@ -121,5 +125,9 @@ public class Bridge : MonoBehaviour
             yield return null;
         }
         DoingCoroutine = false;
+        Helpers.AudioManager.instance.StopAudioFade("puente_despliegue", 0.15f);
+        Helpers.AudioManager.instance.PlayClip("puente_final");
+
+
     }
 }

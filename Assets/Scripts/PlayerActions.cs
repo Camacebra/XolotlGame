@@ -15,7 +15,7 @@ public class PlayerActions : MonoBehaviour
     public Color yellow;
     private SpriteRenderer rend;
     private Material myMat;
-    [HideInInspector]public int currentMode, currentActionType = 1;
+    [HideInInspector]public int currentMode = 5, currentActionType = 1;
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
     [SerializeField] private Transform pickupPos;
@@ -28,11 +28,14 @@ public class PlayerActions : MonoBehaviour
     public bool HasItem { get; private set; }
     public bool HasBarked { get; set; }
     public bool CanBark { get; set; }
+    public bool CanChangeMode { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        CanChangeMode = true;
         CanBark = false;
+        currentMode = 5;
         rend = GetComponent<SpriteRenderer>();
         myMat = rend.material;
         move = GetComponent<PlayerMovement>();
@@ -81,7 +84,10 @@ public class PlayerActions : MonoBehaviour
         if (hit)
         {
             objectInFront = hit.collider.gameObject;
-            objectInFront.SendMessage("ShowPrompt");
+            if (objectInFront != null)
+            {
+                objectInFront.SendMessage("ShowPrompt");
+            }
         }
     }
 
@@ -121,12 +127,15 @@ public class PlayerActions : MonoBehaviour
 
     public void ReleaseItem()
     {
-        boxCollider.enabled = false;
+        if (objectInFront != null)
+        {
+            boxCollider.enabled = false;
 
-        HasItem = false;
-        currentActionType = 1;
-        objectInFront.SendMessage("Release");
-        objectInFront = null;
+            HasItem = false;
+            currentActionType = 1;
+            objectInFront.SendMessage("Release");
+            objectInFront = null;
+        }
     }
 
     public void DropItem()
@@ -138,47 +147,38 @@ public class PlayerActions : MonoBehaviour
 
     private void GrabItem()
     {
-        boxCollider.enabled = true;
-        objectInFront.SendMessage("Grab", pickupPos);
-        HasItem = true;
-        currentActionType = 3;
+        if (objectInFront != null)
+        {
+
+            boxCollider.enabled = true;
+            objectInFront.SendMessage("Grab", pickupPos);
+            HasItem = true;
+            currentActionType = 3;
+        }
     }
 
     private void ChangeMode()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (CanChangeMode)
         {
-            currentMode = currentMode > 0 ? currentMode - 1 : 3;
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            currentMode = currentMode < 3 ? currentMode + 1 : 0;
 
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Helpers.AudioManager.instance.PlayClip("xolo_switch");
+                currentMode = currentMode > 0 ? currentMode - 1 : 3;
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                Helpers.AudioManager.instance.PlayClip("xolo_switch");
+
+                currentMode = currentMode < 3 ? currentMode + 1 : 0;
+
+            }
         }
-        ChangeColor();
     }
 
-    private void ChangeColor()
-    {
-        switch (currentMode)
-        {
-            case 0:
-                myMat.SetColor("_Ecolor", white);
-                break;
-            case 1:
-                myMat.SetColor("_Ecolor", blue);
-                break;
-            case 2:
-                myMat.SetColor("_Ecolor", red);
-                break;
-            case 3:
-                myMat.SetColor("_Ecolor", yellow);
-                break;
-            default:
-                break;
-        }
-        DynamicGI.UpdateEnvironment();
-    }
+ 
 
     [Range(0, 10f)] public float actionableRadius = 8f;
 

@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
                         ANIM_WALK = "Walk",
                         ANIM_JUMP = "Jump",
                         ANIM_JUMP_IDLE = "JumpIdle",
-                        ANIM_SLEEP_IDLE = "SleepIdle",
+                        ANIM_SLEEP_IDLE = "SleepIdle", 
                         ANIM_AWAKE = "Awake",
                         ANIM_BARK = "Bark";
 
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        IsActive = true;
+        IsActive = false;
         prevSound = -1;
         IsMoving = false;
         IsJumping = false;
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         IsJumping = true;
         rb.AddForce(new Vector2(0f, jumpForce));
         if (Helpers.AudioManager.instance)
-            Helpers.AudioManager.instance.PlayClip(PlayerAudios.JUMP);
+            Helpers.AudioManager.instance.PlayClip(PlayerAudios.JUMP,.6f,UnityEngine.Random.Range(0.95f, 1.05f));
     }
 
     private void FixedUpdate()

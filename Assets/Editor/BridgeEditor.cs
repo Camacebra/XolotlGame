@@ -40,7 +40,7 @@ public class BridgeEditor : Editor
         }
         // Update the selected choice in the underlying object
         myTarget.direction = _choices[_choiceIndex];
-        //EditorUtility.SetDirty(myTarget);
+        EditorUtility.SetDirty(myTarget);
     }
 }
 
