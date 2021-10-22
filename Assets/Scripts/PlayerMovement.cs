@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
                         ANIM_WALK = "Walk",
                         ANIM_JUMP = "Jump",
                         ANIM_JUMP_IDLE = "JumpIdle",
-                        ANIM_SLEEP_IDLE = "SleepIdle",
+                        ANIM_SLEEP_IDLE = "SleepIdle", 
                         ANIM_AWAKE = "Awake",
                         ANIM_BARK = "Bark";
 
