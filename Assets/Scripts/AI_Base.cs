@@ -78,7 +78,6 @@ public class AI_Base : MonoBehaviour
                 break;
             }
         }
-
     }
     public virtual void OnWaterEnter(){
         canMove = false;
@@ -132,7 +131,7 @@ public class AI_Base : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision){
         Debug.Log(collision.name);
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping){
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping&& !collision.CompareTag(TAG.TAG_PLATAFORM)){
             CollBlock = collision;
             canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
             if (canJump){
@@ -156,7 +155,7 @@ public class AI_Base : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision){
         Debug.Log(collision.name);
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && collision == CollBlock){
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && collision == CollBlock&& !collision.CompareTag(TAG.TAG_PLATAFORM)){
             CollBlock = null;
         }
         else if (collision.CompareTag(TAG.TAG_WATER)){
@@ -167,7 +166,7 @@ public class AI_Base : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log(collision.name);
-        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping){
+        if ((collision.transform.gameObject.layer == 10 || collision.transform.gameObject.layer == 9) && !isJumping && !collision.CompareTag(TAG.TAG_PLATAFORM)){
             CollBlock = collision;
             canJump = !Physics2D.Raycast(CanJumpPos.position, Vector2.right * direction, DISTANCE_JUMP, Walkeable);
             if (canJump){

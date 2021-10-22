@@ -798,6 +798,13 @@ MonoBehaviour:
     useCustomTime: 0
     customTagTime: 0
     timeElpse: 0
+  - tag: xolo_switch
+    clip: {fileID: 8300000, guid: be0c10195419b27429c59ec593f26191, type: 3}
+    audioSource: {fileID: 0}
+    minTime: 0.23
+    useCustomTime: 0
+    customTagTime: 0
+    timeElpse: 0
   clipsTags: []
 --- !u!82 &4872395299800271654
 AudioSource:

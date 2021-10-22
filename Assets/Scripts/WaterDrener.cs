@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterDrener : MonoBehaviour
 {
     [SerializeField] private float Duration;
+    [SerializeField] private Transform EndPos;
     private bool HasDrener = false;
     private Vector3 initalPos;
     private void Awake()
@@ -23,7 +24,7 @@ public class WaterDrener : MonoBehaviour
         Vector3 EndScale = new Vector3(initalScale.x, 0, initalScale.z);
         while (timeElpse < Duration){
             transform.localScale = Vector3.Lerp(initalScale, EndScale, timeElpse / Duration);
-            transform.position = initalPos;
+            transform.position = Vector3.Lerp(initalPos, EndPos.position, timeElpse / Duration);
             timeElpse += Time.deltaTime;
             yield return null;
         }

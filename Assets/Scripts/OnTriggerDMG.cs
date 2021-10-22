@@ -19,8 +19,7 @@ public class OnTriggerDMG : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision){
         if (collision.CompareTag(PLAYER_TAG)){
             PlayerHealth player = collision.GetComponent<PlayerHealth>();
-            if (player)
-            {
+            if (player){
                 player.GetDMG(transform.position, Velocity, DMG);
             }
 

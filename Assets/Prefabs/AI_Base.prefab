@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &4518000504800634509
 Rigidbody2D:
@@ -200,6 +200,7 @@ MonoBehaviour:
   hasBlocked: 0
   isActive: 0
   canJump: 0
+  canMove: 0
 --- !u!61 &1478725405982654456
 BoxCollider2D:
   m_ObjectHideFlags: 0

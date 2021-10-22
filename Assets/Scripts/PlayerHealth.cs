@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private const float ParpadeoTime = 0.075f;
     private const float FADE_DURATION = 1.5f;
-    [SerializeField] private SpriteRenderer[] ImgHealth;
+    [SerializeField] private Image[] ImgHealth;
     [SerializeField] private Sprite[] spriteHealths; //0 Sin vida 1 con vida
     [SerializeField] private float HitForce;
     [SerializeField] private float InvensibilityDuration;

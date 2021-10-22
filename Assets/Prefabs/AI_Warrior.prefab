@@ -119,7 +119,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!114 &5010217613387742655
 MonoBehaviour:
@@ -148,6 +148,7 @@ MonoBehaviour:
   hasBlocked: 0
   isActive: 0
   canJump: 0
+  canMove: 0
 --- !u!50 &5010217613387742642
 Rigidbody2D:
   serializedVersion: 4

@@ -179,7 +179,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &8167200210374627794
 Rigidbody2D:
@@ -229,6 +229,7 @@ MonoBehaviour:
   hasBlocked: 0
   isActive: 0
   canJump: 0
+  canMove: 0
 --- !u!70 &2518662654556752636
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
