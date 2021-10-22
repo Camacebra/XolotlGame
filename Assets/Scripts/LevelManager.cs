@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     public bool isPause;
     [SerializeField]private Level[] levels;
-    private int currentLevel;
+    [SerializeField]private int currentLevel;
     private PlayerMovement player;
     [SerializeField] private GameObject globalLight;
     private void Awake(){
