@@ -87,6 +87,7 @@ public class PlayerHealth : MonoBehaviour
             ImgHealth[i].sprite = spriteHealths[1];
         }
         sprite.color = Color.white;
+        spawn.SpawnSouls();
         yield return new WaitForSeconds(0.5f);
         FadeController.instance.Fade(FADE_DURATION, true, FadeController.TypeFX.Fade);
         yield return new WaitForSeconds(FADE_DURATION);
