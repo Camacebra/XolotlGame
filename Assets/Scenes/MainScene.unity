@@ -3484,6 +3484,11 @@ PrefabInstance:
       propertyPath: prompt
       value: 
       objectReference: {fileID: 1027360275}
+    - target: {fileID: 3345770137764534566, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3345770137764534567, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33246,7 +33251,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7781886, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -50382,6 +50387,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 680378018}
     m_Modifications:
+    - target: {fileID: 3345770137764534566, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3345770137764534567, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -84851,7 +84861,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 660831686}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -84861,7 +84871,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7781886, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -84878,7 +84888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716829189389735269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -198.62, y: 1.9300001, z: -10}
+  m_LocalPosition: {x: -491.62, y: -6.5699997, z: -9.787109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 716829189282086498}
@@ -85229,6 +85239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: canIncreaseProgress
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345770137764534566, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3345770137764534567, guid: 25aa1e63295a5ee4d9f7e9d3a7330780,
         type: 3}

@@ -49,7 +49,10 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator ChangingAnim()
     {
-        FadeController1.instace.SetFade(Color.black, 1, true, levels[currentLevel].Text);
+        if(currentLevel+1>levels.Length)
+            FadeController1.instace.SetFade(Color.black, 1, true, levels[currentLevel].Text);
+        else
+            FadeController1.instace.SetFade(Color.black, 1, false, levels[currentLevel].Text, true);
         controls.SetActive(false);
         yield return new WaitForSeconds(1);
         globalLight.SetActive(true);
@@ -60,9 +63,11 @@ public class LevelManager : MonoBehaviour
         levels[currentLevel].LevelPrefab.gameObject.SetActive(false);
         player.gameObject.SetActive(false);
         currentLevel++;
-        player.transform.position = levels[currentLevel].RespawnPos.position;
-        player.GetRespawnPos(levels[currentLevel].RespawnPos.position);
-        levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
-        player.gameObject.SetActive(true);
+        if (currentLevel < levels.Length){
+            player.transform.position = levels[currentLevel].RespawnPos.position;
+            player.GetRespawnPos(levels[currentLevel].RespawnPos.position);
+            levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
+            player.gameObject.SetActive(true);
+        }
     }
 }
