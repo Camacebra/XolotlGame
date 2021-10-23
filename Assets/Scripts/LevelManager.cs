@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
@@ -13,11 +14,13 @@ public class LevelManager : MonoBehaviour
     public static AddSoul onAddSoul;
     public static LevelManager Instance;
     public bool isPause;
+    private List<GameObject> Keys = new List<GameObject>();
     [SerializeField]private Level[] levels;
     [SerializeField]private int currentLevel;
     private PlayerHealth player;
     [SerializeField] private GameObject globalLight, controls;
     [SerializeField] private GameObject[] hearts;
+    [SerializeField ] private GameObject KeyPrefab;
     private void Awake(){
         if (Instance != null && Instance != this){
             Destroy(this.gameObject);
@@ -49,6 +52,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator ChangingAnim()
     {
+        Keys.Clear();
         if(currentLevel+1<levels.Length)
             FadeController1.instace.SetFade(Color.black, 1, true, levels[currentLevel].Text);
         else
@@ -67,7 +71,20 @@ public class LevelManager : MonoBehaviour
             player.transform.position = levels[currentLevel].RespawnPos.position;
             player.GetRespawnPos(levels[currentLevel].RespawnPos.position);
             levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
+            if(levels[currentLevel].KeySpawn != null){
+                Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn.position, Quaternion.identity));
+            }
             player.gameObject.SetActive(true);
+        }
+    }
+    public void resetLevel()
+    {
+        foreach(GameObject key in Keys.ToArray()){
+            if (key)
+                Destroy(key);
+        }
+        if (levels[currentLevel].KeySpawn != null){
+            Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn.position, Quaternion.identity));
         }
     }
 }

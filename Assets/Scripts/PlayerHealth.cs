@@ -80,6 +80,7 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(FADE_DURATION);
         if(spawn)
             spawn.DestroySouls();
+        LevelManager.Instance.resetLevel();
         rg.velocity = Vector2.zero;
         transform.position = PosRespawn;
         actualLifes = ImgHealth.Length;
