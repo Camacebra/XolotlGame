@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator ChangingAnim()
     {
-        if(currentLevel+1>levels.Length)
+        if(currentLevel+1<levels.Length)
             FadeController1.instace.SetFade(Color.black, 1, true, levels[currentLevel].Text);
         else
             FadeController1.instace.SetFade(Color.black, 1, false, levels[currentLevel].Text, true);
