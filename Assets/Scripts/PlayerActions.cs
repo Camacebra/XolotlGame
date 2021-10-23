@@ -15,7 +15,7 @@ public class PlayerActions : MonoBehaviour
     public Color yellow;
     private SpriteRenderer rend;
     private Material myMat;
-    [HideInInspector]public int currentMode = 5, currentActionType = 1, currentProgress;
+    public int currentMode = 5, currentActionType = 1, currentProgress;
     private const string TAG_INTERACTABLE = "Interactable";
     private Spawner spawn;
     [SerializeField] private Transform pickupPos;

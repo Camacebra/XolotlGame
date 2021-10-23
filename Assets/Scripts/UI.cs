@@ -48,7 +48,7 @@ public class UI : MonoBehaviour
     private void MoveImage()
     {
         LeanTween.cancel(tweenId);
-        tweenId = LeanTween.moveLocalX(uiModes[active - 1].gameObject, endPos.x + 150f * active - 1, 0.5f).id;
+        tweenId = LeanTween.moveLocalX(uiModes[active - 1].gameObject, endPos.x + 150f * (active - 1), 0.5f).id;
     }
 
     private void CheckMode()
