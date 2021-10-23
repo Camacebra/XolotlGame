@@ -40,6 +40,7 @@ public class FadeController1 : MonoBehaviour
             {
                 Color initalColor = new Color(1, 1, 1, 0);
                 Color endColor = new Color(1, 1, 1, 1);
+                textMesh.gameObject.SetActive(true);
                 textMesh.text = text;
                 textMesh.color = initalColor;
                 float extraTime = 0;
@@ -60,6 +61,8 @@ public class FadeController1 : MonoBehaviour
                     extraTime += Time.deltaTime;
                     yield return null;
                 }
+                textMesh.color = initalColor;
+                textMesh.gameObject.SetActive(false);
             }
             else
                 yield return new WaitForSeconds(duration);
