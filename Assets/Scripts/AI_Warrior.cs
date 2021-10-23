@@ -6,6 +6,7 @@ public class AI_Warrior : AI_Base
 {
     public override void OnBreackEnter(Collider2D col){
         Destroy(col.gameObject);
+        Helpers.AudioManager.instance.PlayClip("break");
     }
 
     public override void Raycasting(){

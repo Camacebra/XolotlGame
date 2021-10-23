@@ -10,6 +10,7 @@ public class Switch : MonoBehaviour
     [SerializeField] private GameObject prompt;
 
     private PlayerActions player;
+    private int index = 0;
     private bool State { get; set; }
     void Start()
     {
@@ -26,6 +27,9 @@ public class Switch : MonoBehaviour
     {
         State = !State;
         activate.Invoke();
+        index = 1 - index;
+        Helpers.AudioManager.instance.PlayClip("switch" + index.ToString());
+        
     }
 
     public void EnablePrompt()

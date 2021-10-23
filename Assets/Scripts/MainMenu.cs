@@ -19,7 +19,6 @@ public class MainMenu : MonoBehaviour
         if (!isStarted && Input.anyKeyDown){
             isStarted = true;
             Anim.SetTrigger(TRIGGET);
-            Helpers.AudioManager.instance.PlayClip("start");
         }
     }
 
@@ -32,5 +31,10 @@ public class MainMenu : MonoBehaviour
     {
         controls.SetActive(true);
         player.Awaken();
+        
+    }
+    public void PlayAudio()
+    {
+        Helpers.AudioManager.instance.PlayClip("start");
     }
 }
