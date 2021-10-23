@@ -567,7 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndPos: {fileID: 1359416516389625992}
   text: {fileID: 1359416516830140866}
-  spriteBack: {fileID: 7290890380843827854}
+  spriteBack: {fileID: 5244552212269753959}
 --- !u!1 &2319944722707227159
 GameObject:
   m_ObjectHideFlags: 0
