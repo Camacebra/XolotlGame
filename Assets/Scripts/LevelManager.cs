@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator ChangingAnim()
     {
-        FadeController1.instace.SetFade(Color.black, 1, true);
+        FadeController1.instace.SetFade(Color.black, 1, true, levels[currentLevel].Text);
         controls.SetActive(false);
         yield return new WaitForSeconds(1);
         globalLight.SetActive(true);

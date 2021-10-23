@@ -9,8 +9,9 @@ public class Level
                 waterSoulsNb,
                 warriorSoulsNb,
                 childSoulsNb,
-                soulsFinish,
-                time;
+                soulsFinish;
+    [TextArea(15, 2)]
+    public string Text;
     public Transform RespawnPos;
     public GameObject LevelPrefab;
 }

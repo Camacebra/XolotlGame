@@ -13,6 +13,7 @@ public class FadeController1 : MonoBehaviour
     private TextMeshProUGUI textMesh;
     private void Awake()
     {
+        textMesh = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         instace = this;
     }
     public void SetFade(Color color, float duration, bool Return = true, string text = "")
@@ -20,7 +21,7 @@ public class FadeController1 : MonoBehaviour
         if (Fading != null) StopCoroutine(Fading);
         Fading = StartCoroutine(onFading(color, duration, Return, text));
     }
-    IEnumerator onFading(Color color, float duration, bool Return, string text)
+    IEnumerator onFading(Color color, float duration, bool Return, string text, float texDuration = 1)
     {
         Image IMG = imageFade;
         Color initialColor = IMG.color;
@@ -42,14 +43,21 @@ public class FadeController1 : MonoBehaviour
                 textMesh.text = text;
                 textMesh.color = initalColor;
                 float extraTime = 0;
-                while (timeElpse < 0.5f){
+                while (extraTime < 0.5f){
                     textMesh.color = Color.Lerp(initalColor, endColor, extraTime / 0.5f);
                     extraTime += Time.deltaTime;
                     yield return null;
                 }
-                yield return duration;
+                extraTime = 0;
+                yield return new WaitForSeconds(texDuration);
+                while (extraTime < 0.5f){
+                    textMesh.color = Color.Lerp(endColor, initalColor, extraTime / 0.5f);
+                    extraTime += Time.deltaTime;
+                    yield return null;
+                }
             }
-            yield return new WaitForSeconds(duration);
+            else
+                yield return new WaitForSeconds(duration);
             color = new Color(0, 0, 0, 0);
             initialColor = IMG.color;
             while (timeElpse <= duration)

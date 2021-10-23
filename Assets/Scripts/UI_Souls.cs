@@ -29,7 +29,7 @@ public class UI_Souls : MonoBehaviour
     private void Start(){
         currentSouls = 0;
         currentLevel = LevelManager.Instance.GetCurrentLevel();
-        timer = currentLevel.time;
+        //timer = currentLevel.time;
         textSoulsCount.text = "0/" + currentLevel.soulsFinish.ToString();
         timeCount.text = "Time: " + timer.ToString();
         LevelManager.onAddSoul = AddSoul;
