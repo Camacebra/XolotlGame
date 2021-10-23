@@ -12,6 +12,7 @@ public class Box : MonoBehaviour
     private Rigidbody2D rb;
     private const int LAYER_OBJECTS = 11;
     private const int LAYER_GROUND = 10;
+    private bool isPlayingSound = false;
     private PlayerActions player;
     public bool IsBeingHeld { get; private set; }
     public bool IsFalling { get; private set; }
@@ -23,6 +24,8 @@ public class Box : MonoBehaviour
             if (collision.collider.name == "Player")
             {
                 player.ChangeAction(2);
+                if(collision.transform.position.y < transform.position.y + 0.1)
+                ShowPrompt();
             }
         }
     }
@@ -37,7 +40,23 @@ public class Box : MonoBehaviour
             HidePrompt();
         }
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!IsFalling || IsBeingHeld)
+        {
+            HidePrompt();
+        }
+        if (collision.collider.name == "Player" && collision.transform.position.y < transform.position.y+0.1)
+        {
+            //Debug.Log(transform.position.y);
+            //Debug.Log(collision.transform.position.y);
+            player.ChangeAction(2);
+            ShowPrompt();
+        }
+        else
+            HidePrompt();
 
+    }
     public void Grab(Transform player)
     {
         IsBeingHeld = true;
@@ -94,6 +113,8 @@ public class Box : MonoBehaviour
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         IsBeingHeld = false;
+        isPlayingSound = false;
+        Helpers.AudioManager.instance.StopAudioFade("box", 0.2f);
     }
 
     private void Drop()
@@ -106,11 +127,18 @@ public class Box : MonoBehaviour
         IsBeingHeld = false;
         IsFalling = true;
         HidePrompt();
+        isPlayingSound = false;
+        Helpers.AudioManager.instance.StopAudioFade("box", 0.2f);
     }
 
     private bool CheckForGround()
     {
         RaycastHit2D hit;
+        if (!isPlayingSound)
+        {
+            isPlayingSound = true;
+            Helpers.AudioManager.instance.PlayFadeAudio("box", 0.25f, 0.2f, true);
+        }
         foreach (Transform pos in raycastPos)
         {
             hit = Physics2D.Raycast(pos.position, Vector2.down, .5f, groundLayer);
@@ -119,6 +147,7 @@ public class Box : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 }

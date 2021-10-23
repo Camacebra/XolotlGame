@@ -18,6 +18,7 @@ public class KeyDoor : MonoBehaviour
         if (!hasKey && collision.CompareTag(TAG_KEY)){
             Debug.Log("ENTRAAAA");
             Debug.Log(collision.name);
+            Helpers.AudioManager.instance.PlayClip("obtain");
             KeyPickUp key = collision.GetComponent<KeyPickUp>();
             if (key){
                 collision.transform.parent = transform;

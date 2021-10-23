@@ -71,11 +71,22 @@ public class LevelManager : MonoBehaviour
             player.transform.position = levels[currentLevel].RespawnPos.position;
             player.GetRespawnPos(levels[currentLevel].RespawnPos.position);
             levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
-            if(levels[currentLevel].KeySpawn != null){
-                Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn.position, Quaternion.identity));
+            if(levels[currentLevel].KeySpawn.Length>0){
+                for (int i = 0; i < levels[currentLevel].KeySpawn.Length; i++)
+                {
+                    Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn[i].position, Quaternion.identity));
+                }
+                
             }
             player.gameObject.SetActive(true);
+            player.StopMovement();
+            Invoke("resetPlayer", 0.75f);
+
         }
+    }
+    void resetPlayer()
+    {
+        player.ContinueMovement();
     }
     public void resetLevel()
     {
@@ -83,8 +94,13 @@ public class LevelManager : MonoBehaviour
             if (key)
                 Destroy(key);
         }
-        if (levels[currentLevel].KeySpawn != null){
-            Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn.position, Quaternion.identity));
+        Keys.Clear();
+        if (levels[currentLevel].KeySpawn.Length > 0){
+            for (int i = 0; i < levels[currentLevel].KeySpawn.Length; i++)
+            {
+                Keys.Add(Instantiate(KeyPrefab, levels[currentLevel].KeySpawn[i].position, Quaternion.identity));
+            }
+
         }
     }
 }

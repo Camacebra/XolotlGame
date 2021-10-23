@@ -14,5 +14,5 @@ public class Level
     public string Text;
     public Transform RespawnPos;
     public GameObject LevelPrefab;
-    public Transform KeySpawn;
+    public Transform[] KeySpawn;
 }

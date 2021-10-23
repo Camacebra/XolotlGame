@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             corrutienRespawn = StartCoroutine(Respawn());
         }
         else if (actualLifes > 0 && canDMG){
-            //Helpers.AudioManager.instance.PlayClip(GameAudiosManager.AUDIOS.HURT, 0.9f, Random.Range(0.9f, 1.1f));
+            Helpers.AudioManager.instance.PlayClip("hit", 0.9f);
             Vector2 Force = Vector2.zero;
             if (velocity == Vector2.zero)
                 Force = new Vector2((Pos.x > transform.position.x ? -1 : 1), 1) * HitForce;
@@ -97,7 +97,16 @@ public class PlayerHealth : MonoBehaviour
         canDMG = true;
         player.CanMove = true;
     }
-
+    public void StopMovement()
+    {
+        player.CanMove = false;
+        rg.velocity = Vector2.zero;
+        player.resetAnimation();
+    }
+    public void ContinueMovement()
+    {
+        player.CanMove = true;
+    }
     IEnumerator Invensibility()
     {
         Time.timeScale = 0;

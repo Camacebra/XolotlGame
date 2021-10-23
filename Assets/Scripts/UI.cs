@@ -27,7 +27,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(endPos.x);
+        //Debug.Log(endPos.x);
         CheckMode();
         CheckProgress();
     }

@@ -10,7 +10,7 @@ public class KeyPickUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!HasPickUp && (collision.gameObject.layer == 8 || collision.gameObject.layer == 12))
+        if (!HasPickUp && (collision.gameObject.layer == 8))
         {
             HasPickUp = true;
             transform.parent = collision.transform;
