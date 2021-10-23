@@ -49,7 +49,12 @@ public class FadeController1 : MonoBehaviour
                     yield return null;
                 }
                 extraTime = 0;
-                yield return new WaitForSeconds(texDuration);
+                while (enabled)
+                {
+                    if (Input.anyKey)
+                        break;
+                    yield return null;
+                }
                 while (extraTime < 0.5f){
                     textMesh.color = Color.Lerp(endColor, initalColor, extraTime / 0.5f);
                     extraTime += Time.deltaTime;
