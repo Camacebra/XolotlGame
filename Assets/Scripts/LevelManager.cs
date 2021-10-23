@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     public bool isPause;
     [SerializeField]private Level[] levels;
     [SerializeField]private int currentLevel;
-    private PlayerMovement player;
+    private PlayerHealth player;
     [SerializeField] private GameObject globalLight, controls;
     [SerializeField] private GameObject[] hearts;
     private void Awake(){
@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        player = FindObjectOfType<PlayerMovement>();
+        player = FindObjectOfType<PlayerHealth>();
         isPause = false;
         Instance = this;
         DontDestroyOnLoad(this);
@@ -61,6 +61,7 @@ public class LevelManager : MonoBehaviour
         player.gameObject.SetActive(false);
         currentLevel++;
         player.transform.position = levels[currentLevel].RespawnPos.position;
+        player.GetRespawnPos(levels[currentLevel].RespawnPos.position);
         levels[currentLevel].LevelPrefab.gameObject.SetActive(true);
         player.gameObject.SetActive(true);
     }

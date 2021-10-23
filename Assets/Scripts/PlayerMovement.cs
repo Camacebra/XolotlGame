@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public bool HasJumped { get; private set; }
     public bool IsBarking { get; private set; }
     public bool IsActive { get; private set; }
+    [HideInInspector]public bool CanMove = true;
 
     void Start()
     {
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         IsMoving = false;
         IsJumping = false;
         IsBarking = false;
+        CanMove = true;
         animator = GetComponent<Animator>();
         playerActions = GetComponent<PlayerActions>();
         rb = GetComponent<Rigidbody2D>();
@@ -56,10 +58,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (!CanMove) return;
         if (IsActive)
         {
-
             direction = Vector2.zero;
             if (!IsBarking)
             {
@@ -107,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-
+        if (!CanMove) return;
         Vector3 targetVelocity = new Vector2(direction.x * (playerActions.HasItem ? speedWithItem: speed), rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         IsMoving =  direction.x != 0 ? true : false;
@@ -249,6 +250,9 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         Invoke(method, animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+    public void resetAnimation(){
+        ChangeCurrentAnimation(ANIM_SLEEP_IDLE);
     }
 
 }

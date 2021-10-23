@@ -17,15 +17,22 @@ public class PlayerHealth : MonoBehaviour
     private bool canDMG;
     private Coroutine corrutienRespawn;
     private Rigidbody2D rg;
+    private Spawner spawn;
+    private PlayerMovement player;
     private void Awake(){
         rg = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        player = GetComponent<PlayerMovement>();
         PosRespawn = transform.position;
         canDMG = true;
         for (int i = 0; i < ImgHealth.Length; i++){
             ImgHealth[i].sprite = spriteHealths[1]; //asignar vida actual
         }
         actualLifes = ImgHealth.Length;
+    }
+    private void OnEnable()
+    {
+        spawn = FindObjectOfType<Spawner>(); 
     }
     public void GetDMG(Vector3 Pos, Vector2 velocity, int dmg)
     {
@@ -64,11 +71,15 @@ public class PlayerHealth : MonoBehaviour
         //HISTOPTIME
         Time.timeScale = 0;
         sprite.color = Color.red;
+        player.CanMove = false;
+        rg.velocity = Vector2.zero;
+        player.resetAnimation();
         yield return new WaitForSecondsRealtime(0.15f);
         Time.timeScale = 1;
-        FadeController.instance.Fade(FADE_DURATION, false, FadeController.TypeFX.Fade);
+        FadeController1.instace.SetFade(Color.black, 1, true);
         yield return new WaitForSeconds(FADE_DURATION);
-        //AudioManager.instance.PlayClip(GameAudiosManager.AUDIOS.LOSE, 0.5f, Random.Range(0.9f, 1.1f));
+        if(spawn)
+            spawn.DestroySouls();
         rg.velocity = Vector2.zero;
         transform.position = PosRespawn;
         actualLifes = ImgHealth.Length;
@@ -82,6 +93,7 @@ public class PlayerHealth : MonoBehaviour
         rg.constraints = RigidbodyConstraints2D.FreezeRotation;
         isGettingHit = false;
         canDMG = true;
+        player.CanMove = true;
     }
 
     IEnumerator Invensibility()

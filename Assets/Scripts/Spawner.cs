@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
         SpawnSouls();
     }
 
-    private void SpawnSouls()
+    public void SpawnSouls()
     {
         int count = 0;
         int SoulPerSpawn = level.baseSoulsNb / Souls[0].SpawnPosition.Length;
@@ -99,6 +99,29 @@ public class Spawner : MonoBehaviour
         //    childSouls.Add( Instantiate(childSoul, new Vector2(pos.x + count * 1.5f, pos.y), Quaternion.identity, transform).GetComponent<AI_Base>());
         //    count++;
         //}
+    }
+    public void DestroySouls()
+    {
+        foreach (AI_Base soul in baseSouls)
+        {
+            Destroy(soul.gameObject);
+        }
+        baseSouls.Clear();
+        foreach (AI_Base soul in warriorSouls)
+        {
+            Destroy(soul.gameObject);
+        }
+        warriorSouls.Clear();
+        foreach (AI_Base soul in waterSouls)
+        {
+            Destroy(soul.gameObject);
+        }
+        waterSouls.Clear();
+        foreach (AI_Base soul in childSouls)
+        {
+            Destroy(soul.gameObject);
+        }
+        childSouls.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -197,9 +220,4 @@ public class Spawner : MonoBehaviour
         }
     }
    
-    // Update is called once per frame
-    void Update()   
-    {
-        
-    }
 }
